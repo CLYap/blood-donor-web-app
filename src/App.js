@@ -9,8 +9,6 @@ function App() {
         <GlobalStyle />
         <MainNavigator />
       </LoginProvider>
-
-      {/* <Login /> */}
     </div>
   );
 }

@@ -36,7 +36,7 @@ const Login = () => {
   };
 
   return (
-    <StyledContainer>
+    <StyledContainer textAlignEnd>
       <LeftContainer img></LeftContainer>
       <RightContainer>
         <InnerContainer>
