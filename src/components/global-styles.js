@@ -27,7 +27,18 @@ export const StyledContainer = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
-  text-align: end;
+
+  ${(props) =>
+    props.textAlignEnd &&
+    `
+    text-align: end;
+  `}
+
+  ${(props) =>
+    props.secondaryBackground &&
+    `
+    background-color: ${secondary};
+  `}
 `;
 
 export const LeftContainer = styled.div`
@@ -54,7 +65,7 @@ export const RightContainer = styled.div`
 `;
 
 export const InnerContainer = styled.div`
-  padding-left: 70px;
+  padding: 20px 70px;
 `;
 
 export const StyledTitle = styled.p`
@@ -95,6 +106,21 @@ export const StyledText = styled.p`
     text-align: left;
     padding-top: 5px;
   `}
+
+  ${(props) =>
+    props.cardLabel &&
+    `
+    font-size: 27px;
+    color: ${theme};
+    padding-top: 25px;
+  `}
+
+  ${(props) =>
+    props.cardDetail &&
+    `
+    font-size: 23px;
+    color: ${tertiary};
+  `}
 `;
 
 export const StyledButton = styled.button`
@@ -105,4 +131,35 @@ export const StyledButton = styled.button`
   border-radius: 5px;
   border-width: 0px;
   margin: 50px 0px;
+`;
+
+export const CardContainer = styled.div`
+  min-width: 45rem;
+  background-color: ${primary};
+  padding: 30px;
+  margin: 20px 0px;
+  border-radius: 30px;
+`;
+
+export const Line = styled.div`
+  height: 1px;
+  width: 100%;
+  background-color: ${darkLight};
+  margin-vertical: 10px;
+`;
+
+export const FlexRowContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const FlexColumnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  ${(props) =>
+    props.paddingLeft70 &&
+    `
+    padding-left: 70px;
+  `}
 `;
