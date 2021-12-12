@@ -3,8 +3,13 @@ import {
   InputFieldContainer,
   StyledLabel,
   StyledTextInput,
+  CheckboxLabel,
 } from './form.styles';
-import { StyledText } from '../global-styles';
+import {
+  StyledText,
+  FlexRowContainer,
+  ColumnThreeContainer,
+} from '../global-styles';
 import { ErrorMessage } from 'formik';
 
 const FormikControl = (props) => {
@@ -12,12 +17,10 @@ const FormikControl = (props) => {
   switch (control) {
     case 'input':
       return <Input {...rest} />;
-    case 'textarea':
     case 'select':
       return <Select {...rest} />;
-    case 'radio':
     case 'checkbox':
-    case 'date':
+      return <Checkbox {...rest} />;
     default:
       return null;
   }
@@ -64,6 +67,42 @@ const Select = (props) => {
           );
         })}
       </StyledTextInput>
+      <ErrorMessage name={name}>
+        {(msg) => <StyledText errorText>{msg}</StyledText>}
+      </ErrorMessage>
+    </InputFieldContainer>
+  );
+};
+
+const Checkbox = (props) => {
+  const { label, name, options, error, ...rest } = props;
+  return (
+    <InputFieldContainer>
+      <CheckboxLabel htmlFor={name}>{label}</CheckboxLabel>
+      <ColumnThreeContainer>
+        <StyledTextInput
+          checkbox={1}
+          errors={error ? 1 : 0}
+          name={name}
+          {...rest}
+        >
+          {({ field }) => {
+            return options.map((option) => {
+              return (
+                <FlexRowContainer key={option.key}>
+                  <input
+                    type='checkbox'
+                    id={option.value}
+                    {...field}
+                    value={option.value}
+                  />
+                  <label htmlFor={option.value}>{option.key}</label>
+                </FlexRowContainer>
+              );
+            });
+          }}
+        </StyledTextInput>
+      </ColumnThreeContainer>
       <ErrorMessage name={name}>
         {(msg) => <StyledText errorText>{msg}</StyledText>}
       </ErrorMessage>

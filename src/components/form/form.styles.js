@@ -50,6 +50,13 @@ export const StyledLabel = styled.label`
   font-size: 13px;
 `;
 
+export const CheckboxLabel = styled.label`
+  padding-bottom: 10px;
+  postive: relative;
+  color: ${darkLight};
+  font-size: 13px;
+`;
+
 export const StyledErrorMessage = styled(ErrorMessage)`
   color: ${theme};
   padding: 0px 10px;
