@@ -14,6 +14,7 @@ const FormikControl = (props) => {
       return <Input {...rest} />;
     case 'textarea':
     case 'select':
+      return <Select {...rest} />;
     case 'radio':
     case 'checkbox':
     case 'date':
@@ -23,11 +24,46 @@ const FormikControl = (props) => {
 };
 
 const Input = (props) => {
-  const { label, name, error, ...rest } = props;
+  const { label, name, error, disabled, ...rest } = props;
   return (
     <InputFieldContainer>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
-      <StyledTextInput errors={error ? 1 : 0} id={name} name={name} {...rest} />
+      <StyledTextInput
+        errors={error ? 1 : 0}
+        disabled={disabled ? 1 : 0}
+        id={name}
+        name={name}
+        {...rest}
+      />
+      <ErrorMessage name={name}>
+        {(msg) => <StyledText errorText>{msg}</StyledText>}
+      </ErrorMessage>
+    </InputFieldContainer>
+  );
+};
+
+const Select = (props) => {
+  const { label, name, options, error, ...rest } = props;
+
+  return (
+    <InputFieldContainer>
+      <StyledLabel htmlFor={name}>{label}</StyledLabel>
+      <StyledTextInput
+        select={1}
+        errors={error ? 1 : 0}
+        component='select'
+        id={name}
+        name={name}
+        {...rest}
+      >
+        {options.map((option) => {
+          return (
+            <option key={option.value} value={option.value}>
+              {option.key}
+            </option>
+          );
+        })}
+      </StyledTextInput>
       <ErrorMessage name={name}>
         {(msg) => <StyledText errorText>{msg}</StyledText>}
       </ErrorMessage>

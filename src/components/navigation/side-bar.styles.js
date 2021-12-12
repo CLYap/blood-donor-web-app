@@ -34,6 +34,7 @@ export const NavMenu = styled.nav`
     `
     left: 0;
     transition: 350ms;
+    z-index: 99;
   `}
 `;
 

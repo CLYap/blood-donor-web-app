@@ -4,6 +4,8 @@ import SideBar from './side-bar';
 import Login from '../../pages/login';
 import Home from '../../pages/home';
 import CreateAccount from '../../pages/create-account';
+import CreateDonor from '../../pages/create-donor';
+import CreateStaff from '../../pages/create-staff';
 import UpdateDonation from '../../pages/update-donation';
 import FindDonor from '../../pages/find-donor';
 import Appointment from '../../pages/appointment';
@@ -18,6 +20,8 @@ const PageRoutes = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/create-account' element={<CreateAccount />} />
+          <Route path='/create-donor' element={<CreateDonor />} />
+          <Route path='/create-staff' element={<CreateStaff />} />
           <Route path='/donation' element={<UpdateDonation />} />
           <Route path='/search-donor' element={<FindDonor />} />
           <Route path='/appointment' element={<Appointment />} />
