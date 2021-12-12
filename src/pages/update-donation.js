@@ -91,7 +91,7 @@ const UpdateDonation = () => {
                 <CardContainer>
                   <StyledTitle subtitle>Create Donation Record</StyledTitle>
                   <Line />
-                  <FlexRowContainer>
+                  <FlexRowContainer justifyContentSpaceBetween>
                     <FormikControl
                       control='input'
                       type='date'
@@ -172,13 +172,15 @@ const UpdateDonation = () => {
                         name='bloodType'
                         disabled={true}
                       />
-                      <FormikControl
-                        control='input'
-                        type='bloodUnit'
-                        label='Blood Unit (mL)'
-                        name='bloodUnit'
-                        error={errors.bloodUnit && touched.bloodUnit}
-                      />
+                      <FlexColumnContainer paddingLeft35>
+                        <FormikControl
+                          control='input'
+                          type='bloodUnit'
+                          label='Blood Unit (mL)'
+                          name='bloodUnit'
+                          error={errors.bloodUnit && touched.bloodUnit}
+                        />
+                      </FlexColumnContainer>
                     </FlexRowContainer>
                     <FormikControl
                       control='input'

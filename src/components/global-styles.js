@@ -160,6 +160,7 @@ export const SecondaryButton = styled(StyledButton)`
 
 export const CardContainer = styled.div`
   min-width: 35rem;
+  min-height: 30rem;
   background-color: ${primary};
   padding: 30px;
   margin: 20px 0px;
@@ -176,7 +177,12 @@ export const Line = styled.div`
 export const FlexRowContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+
+  ${(props) =>
+    props.justifyContentSpaceBetween &&
+    `
+    justify-content: space-between;
+  `}
 
   ${(props) =>
     props.justifyContentRight &&
@@ -201,4 +207,8 @@ export const FlexColumnContainer = styled.div`
     `
     padding-left: 35px;
   `}
+`;
+
+export const ColumnThreeContainer = styled.div`
+  column-count: 3;
 `;
