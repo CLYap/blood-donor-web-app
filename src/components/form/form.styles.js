@@ -12,12 +12,10 @@ export const InputFieldContainer = styled.div`
 `;
 
 export const StyledTextInput = styled(Field)`
-  min-width: 580px;
-  min-height: 50px;
   background-color: ${primary};
-  padding: 15px 10px 0px 10px;
+  padding: 25px 10px 5px 10px;
   border-radius: 10px;
-  font-size: 25px;
+  font-size: 20px;
   color: ${tertiary};
   border-width: 3px;
   border-style: solid;
@@ -29,6 +27,18 @@ export const StyledTextInput = styled(Field)`
     border-color: ${theme};
     border-width: 1px;
   `}
+
+  ${(props) =>
+    props.select === 1 &&
+    `
+    padding: 26px 10px 5px 10px;
+  `}
+
+  ${(props) =>
+    props.disabled === 1 &&
+    `
+    background-color: ${secondary};
+  `}
 `;
 
 export const StyledLabel = styled.label`
@@ -36,8 +46,8 @@ export const StyledLabel = styled.label`
   top: 0;
   left: 0;
   color: ${darkLight};
-  padding: 8px 14px;
-  font-size: 15px;
+  padding: 8px 12px;
+  font-size: 13px;
 `;
 
 export const StyledErrorMessage = styled(ErrorMessage)`

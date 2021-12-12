@@ -29,6 +29,12 @@ export const StyledContainer = styled.div`
   height: 100vh;
 
   ${(props) =>
+    props.paddingTop250 &&
+    `
+    padding-top: 250px;
+  `}
+
+  ${(props) =>
     props.textAlignEnd &&
     `
     text-align: end;
@@ -65,7 +71,9 @@ export const RightContainer = styled.div`
 `;
 
 export const InnerContainer = styled.div`
-  padding: 20px 70px;
+  padding: 20px 60px;
+  align-self: center;
+  margin: auto;
 `;
 
 export const StyledTitle = styled.p`
@@ -77,14 +85,21 @@ export const StyledTitle = styled.p`
     props.pageTitle &&
     `
     color: ${theme};
-    font-size: 40px;
+    font-size: 30px;
+    text-align: start;
   `}
 
   ${(props) =>
     props.subtitle &&
     `
-    font-size: 30px;
+    font-size: 20px;
     text-align: start;
+  `}
+
+  ${(props) =>
+    props.paddingTop25 &&
+    `
+    padding-top: 25px;
   `}
 `;
 
@@ -101,7 +116,7 @@ export const StyledText = styled.p`
   ${(props) =>
     props.errorText &&
     `
-    font-size: 15px;
+    font-size: 12px;
     color: ${theme};
     text-align: left;
     padding-top: 5px;
@@ -118,23 +133,33 @@ export const StyledText = styled.p`
   ${(props) =>
     props.cardDetail &&
     `
-    font-size: 23px;
+    font-size: 20px;
     color: ${tertiary};
   `}
 `;
 
 export const StyledButton = styled.button`
-  padding: 15px 30px;
+  padding: 10px 20px;
   background-color: ${theme};
   justify-content: center;
   align-items: center;
   border-radius: 5px;
   border-width: 0px;
-  margin: 50px 0px;
+  margin: 25px 0px;
+
+  ${(props) =>
+    props.marginRight30 &&
+    `
+    margin-right: 30px;
+  `}
+`;
+
+export const SecondaryButton = styled(StyledButton)`
+  background-color: ${secondary};
 `;
 
 export const CardContainer = styled.div`
-  min-width: 45rem;
+  min-width: 35rem;
   background-color: ${primary};
   padding: 30px;
   margin: 20px 0px;
@@ -151,15 +176,29 @@ export const Line = styled.div`
 export const FlexRowContainer = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+
+  ${(props) =>
+    props.justifyContentRight &&
+    `
+    justify-content: right;
+  `}
 `;
 
 export const FlexColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 
   ${(props) =>
     props.paddingLeft70 &&
     `
     padding-left: 70px;
+  `}
+
+  ${(props) =>
+    props.paddingLeft35 &&
+    `
+    padding-left: 35px;
   `}
 `;
