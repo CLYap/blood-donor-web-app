@@ -125,7 +125,7 @@ export const StyledText = styled.p`
   ${(props) =>
     props.cardLabel &&
     `
-    font-size: 27px;
+    font-size: 20px;
     color: ${theme};
     padding-top: 25px;
   `}
@@ -133,8 +133,15 @@ export const StyledText = styled.p`
   ${(props) =>
     props.cardDetail &&
     `
-    font-size: 20px;
+    font-size: 18px;
     color: ${tertiary};
+  `}
+
+  ${(props) =>
+    props.buttonText &&
+    `
+    padding-left: 10px;
+    align-self: center;
   `}
 `;
 

@@ -55,6 +55,12 @@ export const NavText = styled.li`
     align-items: center;
     padding: 0 20px;
     border-radius: 4px;
+
+    ${(props) =>
+      props.submenu &&
+      `
+      padding: 0 50px;
+    `}
   }
 
   a:hover {

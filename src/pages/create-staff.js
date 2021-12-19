@@ -110,20 +110,24 @@ const CreateStaff = () => {
                     name='companyEmail'
                     error={errors.companyEmail && touched.companyEmail}
                   />
-                  <FormikControl
-                    control='input'
-                    type='lName'
-                    label='Last Name'
-                    name='lName'
-                    error={errors.lName && touched.lName}
-                  />
-                  <FormikControl
-                    control='input'
-                    type='fName'
-                    label='First Name'
-                    name='fName'
-                    error={errors.fName && touched.fName}
-                  />
+                  <FlexRowContainer>
+                    <FormikControl
+                      control='input'
+                      type='lName'
+                      label='Last Name'
+                      name='lName'
+                      error={errors.lName && touched.lName}
+                    />
+                    <FlexColumnContainer paddingLeft70>
+                      <FormikControl
+                        control='input'
+                        type='fName'
+                        label='First Name'
+                        name='fName'
+                        error={errors.fName && touched.fName}
+                      />
+                    </FlexColumnContainer>
+                  </FlexRowContainer>
                   <FormikControl
                     control='select'
                     label='Gender'

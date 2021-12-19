@@ -3,15 +3,14 @@ import MaterialTable from 'material-table';
 import {
   StyledContainer,
   InnerContainer,
-  CardContainer,
   StyledTitle,
+  Colors,
+  FlexRowContainer,
   StyledButton,
-  SecondaryButton,
   StyledText,
   Line,
-  FlexRowContainer,
-  Colors,
 } from '../components/global-styles';
+import { useNavigate } from 'react-router-dom';
 
 const { theme, lightTheme } = Colors;
 
@@ -111,9 +110,89 @@ const HistoryLs = [
     bloodUnit: '300',
     covidAntibody: '+',
   },
+  {
+    sessionID: '7',
+    date: '28-09-2013',
+    time: '1430',
+    staffUUID: '983749393933',
+    staffName: 'Siti Norway sw',
+    centreId: 'C0003',
+    centreName: 'Pantai Hospital',
+    bloodGroup: 'B+',
+    bP: '126/60',
+    heamoglobinCount: '800',
+    pulse: '70',
+    bloodUnit: '300',
+    covidAntibody: '+',
+  },
+  {
+    sessionID: '8',
+    date: '28-09-2013',
+    time: '1430',
+    staffUUID: '983749393933',
+    staffName: 'Siti Norway sw',
+    centreId: 'C0003',
+    centreName: 'Pantai Hospital',
+    bloodGroup: 'B+',
+    bP: '126/60',
+    heamoglobinCount: '800',
+    pulse: '70',
+    bloodUnit: '300',
+    covidAntibody: '+',
+  },
+  {
+    sessionID: '9',
+    date: '28-09-2013',
+    time: '1430',
+    staffUUID: '983749393933',
+    staffName: 'Siti Norway sw',
+    centreId: 'C0003',
+    centreName: 'Pantai Hospital',
+    bloodGroup: 'B+',
+    bP: '126/60',
+    heamoglobinCount: '800',
+    pulse: '70',
+    bloodUnit: '300',
+    covidAntibody: '+',
+  },
+  {
+    sessionID: '10',
+    date: '28-09-2013',
+    time: '1430',
+    staffUUID: '983749393933',
+    staffName: 'Siti Norway sw',
+    centreId: 'C0003',
+    centreName: 'Pantai Hospital',
+    bloodGroup: 'B+',
+    bP: '126/60',
+    heamoglobinCount: '800',
+    pulse: '70',
+    bloodUnit: '300',
+    covidAntibody: '+',
+  },
+  {
+    sessionID: '11',
+    date: '28-09-2013',
+    time: '1430',
+    staffUUID: '983749393933',
+    staffName: 'Siti Norway sw',
+    centreId: 'C0003',
+    centreName: 'Pantai Hospital',
+    bloodGroup: 'B+',
+    bP: '126/60',
+    heamoglobinCount: '800',
+    pulse: '70',
+    bloodUnit: '300',
+    covidAntibody: '+',
+  },
 ];
 
 const DonationHistory = () => {
+  const navigate = useNavigate();
+  const routeChange = () => {
+    navigate('/donor/donation/update');
+  };
+
   const columns = [
     { title: 'Session ID', field: 'sessionID' },
     { title: 'Date', field: 'date', searchable: false },
@@ -139,6 +218,17 @@ const DonationHistory = () => {
   return (
     <StyledContainer secondaryBackground>
       <InnerContainer>
+        <FlexRowContainer justifyContentSpaceBetween>
+          <StyledTitle pageTitle>Donor Details</StyledTitle>
+          <StyledButton onClick={routeChange}>
+            <FlexRowContainer>
+              <StyledText primaryText buttonText>
+                Add Donation History
+              </StyledText>
+            </FlexRowContainer>
+          </StyledButton>
+        </FlexRowContainer>
+        <Line />
         <MaterialTable
           title=''
           data={HistoryLs}
@@ -148,19 +238,18 @@ const DonationHistory = () => {
               backgroundColor: lightTheme,
               color: theme,
               fontSize: 17,
+              padding: 5,
             },
-            margin: 10,
-            pageSizeOptions: [5],
-            searchFieldStyle: {
-              height: '20px',
-              fontSize: 15,
-              marginBottom: 20,
-            },
+            padding: 5,
+            margin: 0,
+            pageSize: 10,
+            pageSizeOptions: [10],
+            search: false,
           }}
           style={{
             minWidth: '50rem',
-            padding: 30,
-            marginTop: 30,
+            padding: 20,
+            paddingTop: 0,
             zIndex: 1,
             fontSize: 15,
           }}

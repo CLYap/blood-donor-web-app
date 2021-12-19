@@ -8,7 +8,13 @@ import {
   Line,
   FlexRowContainer,
   FlexColumnContainer,
+  StyledButton,
+  Colors,
 } from '../components/global-styles';
+import { FiExternalLink } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+
+const { primary } = Colors;
 
 const profileData = {
   donorId: 'D0001',
@@ -31,10 +37,25 @@ const profileData = {
 };
 
 const DonorDetails = () => {
+  const navigate = useNavigate();
+  const routeChange = () => {
+    navigate('/donor/donation');
+  };
+
   return (
     <StyledContainer secondaryBackground>
       <InnerContainer>
-        <StyledTitle pageTitle>Donor Details</StyledTitle>
+        <FlexRowContainer justifyContentSpaceBetween>
+          <StyledTitle pageTitle>Donor Details</StyledTitle>
+          <StyledButton onClick={routeChange}>
+            <FlexRowContainer>
+              <FiExternalLink color={primary} size={25} />
+              <StyledText primaryText buttonText>
+                View Donation History
+              </StyledText>
+            </FlexRowContainer>
+          </StyledButton>
+        </FlexRowContainer>
         <Line />
         <FlexRowContainer>
           <FlexColumnContainer>

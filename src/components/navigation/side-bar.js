@@ -3,20 +3,18 @@ import {
   StyledNavBar,
   MenuBar,
   NavMenu,
-  NavText,
   NavBarToggle,
   NavMenuItem,
 } from './side-bar.styles';
-import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import { FaBars } from 'react-icons/fa';
 import { AiOutlineClose, AiFillHome } from 'react-icons/ai';
 import { BsFillPersonFill, BsCalendarDayFill } from 'react-icons/bs';
-import { MdBloodtype } from 'react-icons/md';
 import { IoLocationSharp } from 'react-icons/io5';
 import { Colors } from '../global-styles';
+import SideBarSubmenu from './side-bar-submenu';
 
-const { primary, secondary, tertiary, darkLight, theme, lightTheme } = Colors;
+const { tertiary } = Colors;
 
 const SideBarData = [
   {
@@ -28,15 +26,20 @@ const SideBarData = [
     title: 'Create Account',
     path: '/create-account',
     icon: <BsFillPersonFill />,
-  },
-  {
-    title: 'Donation',
-    path: '/donation',
-    icon: <MdBloodtype />,
+    subnav: [
+      {
+        title: 'Staff Account',
+        path: '/create-account/staff',
+      },
+      {
+        title: 'Donor Account',
+        path: '/create-account/donor',
+      },
+    ],
   },
   {
     title: 'Search Donor',
-    path: '/search-donor',
+    path: '/donor',
     icon: <IoLocationSharp />,
   },
   {
@@ -69,12 +72,11 @@ const SideBar = () => {
             </NavBarToggle>
             {SideBarData.map((item, index) => {
               return (
-                <NavText key={index}>
-                  <Link to={item.path} onClick={showSideBar}>
-                    {item.icon}
-                    <span>{item.title}</span>
-                  </Link>
-                </NavText>
+                <SideBarSubmenu
+                  showSideBar={showSideBar}
+                  item={item}
+                  key={index}
+                />
               );
             })}
           </NavMenuItem>

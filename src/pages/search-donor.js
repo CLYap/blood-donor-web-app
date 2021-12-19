@@ -12,58 +12,58 @@ const { theme, lightTheme } = Colors;
 
 const donorLs = [
   {
-    donorId: 'D0001',
+    icNo: '991203136202',
     fName: 'Cheel',
     lName: 'Yap',
     bloodType: 'O+',
     distance: '5km',
-    lastUpdated: 'Sat Dec 11 2021 09:33:40 GMT+0800 (Malaysia Time)',
+    lastUpdated: '30 minutes ago',
   },
   {
-    donorId: 'D0002',
+    icNo: '891203136202',
     fName: 'Cheel',
     lName: 'Yap',
     bloodType: 'O+',
     distance: '5km',
-    lastUpdated: 'Sat Dec 11 2021 09:33:40 GMT+0800 (Malaysia Time)',
+    lastUpdated: '10 minutes ago',
   },
   {
-    donorId: 'D0003',
+    icNo: '951203136203',
     fName: 'Cheel',
     lName: 'Yap',
     bloodType: 'AB+',
     distance: '5km',
-    lastUpdated: 'Sat Dec 11 2021 09:33:40 GMT+0800 (Malaysia Time)',
+    lastUpdated: '15 minutes ago',
   },
   {
-    donorId: 'D0004',
+    icNo: '671203056202',
     fName: 'Cheel',
     lName: 'Yap',
     bloodType: 'A-',
     distance: '5km',
-    lastUpdated: 'Sat Dec 04 2021 09:33:40 GMT+0800 (Malaysia Time)',
+    lastUpdated: '1 hour ago',
   },
   {
-    donorId: 'D0005',
+    icNo: '921103106202',
     fName: 'Cheel',
     lName: 'Yap',
     bloodType: 'B+',
     distance: '5km',
-    lastUpdated: 'Sat Dec 11 2021 09:33:40 GMT+0800 (Malaysia Time)',
+    lastUpdated: '2 hours ago',
   },
   {
-    donorId: 'D0006',
+    icNo: '691203126208',
     fName: 'Cheel',
     lName: 'Yap',
     bloodType: 'O-',
     distance: '5km',
-    lastUpdated: 'Fri Dec 10 2021 09:33:40 GMT+0800 (Malaysia Time)',
+    lastUpdated: '15 hours ago',
   },
 ];
 
-const FindDonor = () => {
+const SearchDonor = () => {
   const columns = [
-    { title: 'Donor ID', field: 'donorId', searchable: false, sorting: false },
+    { title: 'IC No.', field: 'icNo', searchable: true, sorting: false },
     { title: 'First Name', field: 'fName', searchable: false, sorting: false },
     { title: 'Last Name', field: 'lName', searchable: false, sorting: false },
     {
@@ -82,9 +82,9 @@ const FindDonor = () => {
   ];
 
   return (
-    <StyledContainer>
+    <StyledContainer secondaryBackground>
       <InnerContainer>
-        <StyledTitle pageTitle>Find Donor</StyledTitle>
+        <StyledTitle pageTitle>Search Donor</StyledTitle>
         <Line />
         <MaterialTable
           title=''
@@ -102,6 +102,7 @@ const FindDonor = () => {
               height: '40px',
               fontSize: 15,
               marginBottom: 20,
+              width: '300px',
             },
           }}
           style={{
@@ -112,7 +113,7 @@ const FindDonor = () => {
             fontSize: 15,
           }}
           localization={{
-            toolbar: { searchPlaceholder: 'Search by Blood Group' },
+            toolbar: { searchPlaceholder: 'Search by IC No. / Blood Group' },
           }}
         ></MaterialTable>
       </InnerContainer>
@@ -120,4 +121,4 @@ const FindDonor = () => {
   );
 };
 
-export default FindDonor;
+export default SearchDonor;
