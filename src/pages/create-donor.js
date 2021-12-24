@@ -14,6 +14,7 @@ import {
   FlexColumnContainer,
 } from '../components/global-styles';
 import FormikControl from '../components/form/formik-control';
+import SideBar from '../components/navigation/side-bar';
 
 const CreateDonor = () => {
   const initialValues = {
@@ -64,95 +65,98 @@ const CreateDonor = () => {
   };
 
   return (
-    <StyledContainer secondaryBackground>
-      <InnerContainer>
-        <StyledTitle pageTitle>Create Donor Account</StyledTitle>
-        <Line />
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}
-        >
-          {({ errors, touched }) => (
-            <Form>
-              <FlexRowContainer>
-                <CardContainer>
-                  <StyledTitle subtitle>Personal Information</StyledTitle>
-                  <Line />
-                  <FormikControl
-                    control='input'
-                    type='lName'
-                    label='Last Name'
-                    name='lName'
-                    error={errors.lName && touched.lName}
-                  />
-                  <FormikControl
-                    control='input'
-                    type='fName'
-                    label='First Name'
-                    name='fName'
-                    error={errors.fName && touched.fName}
-                  />
-                  <FormikControl
-                    control='input'
-                    type='icNo'
-                    label='IC no.'
-                    name='icNo'
-                    error={errors.icNo && touched.icNo}
-                  />
-                  <FormikControl
-                    control='select'
-                    label='Gender'
-                    name='gender'
-                    options={genderOptions}
-                    error={errors.gender && touched.gender}
-                  />
-                </CardContainer>
-                <FlexColumnContainer paddingLeft70>
+    <>
+      <SideBar />
+      <StyledContainer secondaryBackground>
+        <InnerContainer>
+          <StyledTitle pageTitle>Create Donor Account</StyledTitle>
+          <Line />
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {({ errors, touched }) => (
+              <Form>
+                <FlexRowContainer>
                   <CardContainer>
-                    <StyledTitle subtitle>Blood Detail</StyledTitle>
+                    <StyledTitle subtitle>Personal Information</StyledTitle>
                     <Line />
+                    <FormikControl
+                      control='input'
+                      type='lName'
+                      label='Last Name'
+                      name='lName'
+                      error={errors.lName && touched.lName}
+                    />
+                    <FormikControl
+                      control='input'
+                      type='fName'
+                      label='First Name'
+                      name='fName'
+                      error={errors.fName && touched.fName}
+                    />
+                    <FormikControl
+                      control='input'
+                      type='icNo'
+                      label='IC no.'
+                      name='icNo'
+                      error={errors.icNo && touched.icNo}
+                    />
                     <FormikControl
                       control='select'
-                      label='Blood Group'
-                      name='bloodType'
-                      options={bloodGroupOptions}
-                      error={errors.bloodType && touched.bloodType}
-                    />
-                    <StyledTitle subtitle paddingTop25>
-                      Contact Information
-                    </StyledTitle>
-                    <Line />
-                    <FormikControl
-                      control='input'
-                      type='contactNo'
-                      label='Contact no.'
-                      name='contactNo'
-                      error={errors.contactNo && touched.contactNo}
-                    />
-                    <FormikControl
-                      control='input'
-                      type='email'
-                      label='Email Address'
-                      name='email'
-                      error={errors.email && touched.email}
+                      label='Gender'
+                      name='gender'
+                      options={genderOptions}
+                      error={errors.gender && touched.gender}
                     />
                   </CardContainer>
-                </FlexColumnContainer>
-              </FlexRowContainer>
-              <FlexRowContainer justifyContentRight>
-                <SecondaryButton marginRight30>
-                  <StyledText tertiaryText>Cancel</StyledText>
-                </SecondaryButton>
-                <StyledButton type='submit'>
-                  <StyledText primaryText>Submit</StyledText>
-                </StyledButton>
-              </FlexRowContainer>
-            </Form>
-          )}
-        </Formik>
-      </InnerContainer>
-    </StyledContainer>
+                  <FlexColumnContainer paddingLeft70>
+                    <CardContainer>
+                      <StyledTitle subtitle>Blood Detail</StyledTitle>
+                      <Line />
+                      <FormikControl
+                        control='select'
+                        label='Blood Group'
+                        name='bloodType'
+                        options={bloodGroupOptions}
+                        error={errors.bloodType && touched.bloodType}
+                      />
+                      <StyledTitle subtitle paddingTop25>
+                        Contact Information
+                      </StyledTitle>
+                      <Line />
+                      <FormikControl
+                        control='input'
+                        type='contactNo'
+                        label='Contact no.'
+                        name='contactNo'
+                        error={errors.contactNo && touched.contactNo}
+                      />
+                      <FormikControl
+                        control='input'
+                        type='email'
+                        label='Email Address'
+                        name='email'
+                        error={errors.email && touched.email}
+                      />
+                    </CardContainer>
+                  </FlexColumnContainer>
+                </FlexRowContainer>
+                <FlexRowContainer justifyContentRight>
+                  <SecondaryButton marginRight30>
+                    <StyledText tertiaryText>Cancel</StyledText>
+                  </SecondaryButton>
+                  <StyledButton type='submit'>
+                    <StyledText primaryText>Submit</StyledText>
+                  </StyledButton>
+                </FlexRowContainer>
+              </Form>
+            )}
+          </Formik>
+        </InnerContainer>
+      </StyledContainer>
+    </>
   );
 };
 

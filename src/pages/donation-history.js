@@ -11,6 +11,7 @@ import {
   Line,
 } from '../components/global-styles';
 import { useNavigate } from 'react-router-dom';
+import SideBar from '../components/navigation/side-bar';
 
 const { theme, lightTheme } = Colors;
 
@@ -216,46 +217,49 @@ const DonationHistory = () => {
     },
   ];
   return (
-    <StyledContainer secondaryBackground>
-      <InnerContainer>
-        <FlexRowContainer justifyContentSpaceBetween>
-          <StyledTitle pageTitle>Donor Details</StyledTitle>
-          <StyledButton onClick={routeChange}>
-            <FlexRowContainer>
-              <StyledText primaryText buttonText>
-                Add Donation History
-              </StyledText>
-            </FlexRowContainer>
-          </StyledButton>
-        </FlexRowContainer>
-        <Line />
-        <MaterialTable
-          title=''
-          data={HistoryLs}
-          columns={columns}
-          options={{
-            headerStyle: {
-              backgroundColor: lightTheme,
-              color: theme,
-              fontSize: 17,
+    <>
+      <SideBar />
+      <StyledContainer secondaryBackground>
+        <InnerContainer>
+          <FlexRowContainer justifyContentSpaceBetween>
+            <StyledTitle pageTitle>Donor Details</StyledTitle>
+            <StyledButton onClick={routeChange}>
+              <FlexRowContainer>
+                <StyledText primaryText buttonText>
+                  Add Donation History
+                </StyledText>
+              </FlexRowContainer>
+            </StyledButton>
+          </FlexRowContainer>
+          <Line />
+          <MaterialTable
+            title=''
+            data={HistoryLs}
+            columns={columns}
+            options={{
+              headerStyle: {
+                backgroundColor: lightTheme,
+                color: theme,
+                fontSize: 17,
+                padding: 5,
+              },
               padding: 5,
-            },
-            padding: 5,
-            margin: 0,
-            pageSize: 10,
-            pageSizeOptions: [10],
-            search: false,
-          }}
-          style={{
-            minWidth: '50rem',
-            padding: 20,
-            paddingTop: 0,
-            zIndex: 1,
-            fontSize: 15,
-          }}
-        ></MaterialTable>
-      </InnerContainer>
-    </StyledContainer>
+              margin: 0,
+              pageSize: 10,
+              pageSizeOptions: [10],
+              search: false,
+            }}
+            style={{
+              minWidth: '50rem',
+              padding: 20,
+              paddingTop: 0,
+              zIndex: 1,
+              fontSize: 15,
+            }}
+          ></MaterialTable>
+        </InnerContainer>
+      </StyledContainer>
+    </>
   );
 };
 

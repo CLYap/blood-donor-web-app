@@ -1,5 +1,5 @@
 import { GlobalStyle } from './components/global-styles';
-import MainNavigator from './components/navigation/main-navigator';
+import Navigator from './components/navigation/navigator';
 import LoginProvider from './components/context/login-provider';
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
     <div>
       <LoginProvider>
         <GlobalStyle />
-        <MainNavigator />
+        <Navigator />
       </LoginProvider>
     </div>
   );

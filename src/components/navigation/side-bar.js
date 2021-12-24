@@ -24,7 +24,7 @@ const SideBarData = [
   },
   {
     title: 'Create Account',
-    path: '/create-account',
+    path: '',
     icon: <BsFillPersonFill />,
     subnav: [
       {

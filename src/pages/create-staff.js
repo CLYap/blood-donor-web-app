@@ -14,6 +14,7 @@ import {
   FlexColumnContainer,
 } from '../components/global-styles';
 import FormikControl from '../components/form/formik-control';
+import SideBar from '../components/navigation/side-bar';
 
 const nurseInfo = {
   //from redux
@@ -74,120 +75,123 @@ const CreateStaff = () => {
   };
 
   return (
-    <StyledContainer secondaryBackground>
-      <InnerContainer>
-        <StyledTitle pageTitle>Create Staff Account</StyledTitle>
-        <Line />
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}
-        >
-          {({ errors, touched }) => (
-            <Form>
-              <FlexRowContainer>
-                <CardContainer>
-                  <StyledTitle subtitle>Staff Details</StyledTitle>
-                  <Line />
-                  <FormikControl
-                    control='input'
-                    type='centreId'
-                    label='Blood Centre ID'
-                    name='centreId'
-                    disabled={true}
-                  />
-                  <FormikControl
-                    control='input'
-                    type='centreName'
-                    label='Blood Centre'
-                    name='centreName'
-                    disabled={true}
-                  />
-                  <FormikControl
-                    control='input'
-                    type='companyEmail'
-                    label='Company Email'
-                    name='companyEmail'
-                    error={errors.companyEmail && touched.companyEmail}
-                  />
-                  <FlexRowContainer>
+    <>
+      <SideBar />
+      <StyledContainer secondaryBackground>
+        <InnerContainer>
+          <StyledTitle pageTitle>Create Staff Account</StyledTitle>
+          <Line />
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {({ errors, touched }) => (
+              <Form>
+                <FlexRowContainer>
+                  <CardContainer>
+                    <StyledTitle subtitle>Staff Details</StyledTitle>
+                    <Line />
                     <FormikControl
                       control='input'
-                      type='lName'
-                      label='Last Name'
-                      name='lName'
-                      error={errors.lName && touched.lName}
+                      type='centreId'
+                      label='Blood Centre ID'
+                      name='centreId'
+                      disabled={true}
                     />
-                    <FlexColumnContainer paddingLeft70>
+                    <FormikControl
+                      control='input'
+                      type='centreName'
+                      label='Blood Centre'
+                      name='centreName'
+                      disabled={true}
+                    />
+                    <FormikControl
+                      control='input'
+                      type='companyEmail'
+                      label='Company Email'
+                      name='companyEmail'
+                      error={errors.companyEmail && touched.companyEmail}
+                    />
+                    <FlexRowContainer>
                       <FormikControl
                         control='input'
-                        type='fName'
-                        label='First Name'
-                        name='fName'
-                        error={errors.fName && touched.fName}
+                        type='lName'
+                        label='Last Name'
+                        name='lName'
+                        error={errors.lName && touched.lName}
                       />
-                    </FlexColumnContainer>
-                  </FlexRowContainer>
-                  <FormikControl
-                    control='select'
-                    label='Gender'
-                    name='gender'
-                    options={genderOptions}
-                    error={errors.gender && touched.gender}
-                  />
-                  <FormikControl
-                    control='input'
-                    type='icNo'
-                    label='IC no.'
-                    name='icNo'
-                    error={errors.icNo && touched.icNo}
-                  />
-                </CardContainer>
-                <FlexColumnContainer paddingLeft70>
-                  <CardContainer>
-                    <StyledTitle subtitle>System Registration</StyledTitle>
-                    <Line />
+                      <FlexColumnContainer paddingLeft70>
+                        <FormikControl
+                          control='input'
+                          type='fName'
+                          label='First Name'
+                          name='fName'
+                          error={errors.fName && touched.fName}
+                        />
+                      </FlexColumnContainer>
+                    </FlexRowContainer>
                     <FormikControl
                       control='select'
-                      label='Role'
-                      name='role'
-                      options={roleOptions}
-                      error={errors.role && touched.role}
-                    />
-                    <StyledTitle subtitle paddingTop25>
-                      Contact Information
-                    </StyledTitle>
-                    <Line />
-                    <FormikControl
-                      control='input'
-                      type='contactNo'
-                      label='Contact no.'
-                      name='contactNo'
-                      error={errors.contactNo && touched.contactNo}
+                      label='Gender'
+                      name='gender'
+                      options={genderOptions}
+                      error={errors.gender && touched.gender}
                     />
                     <FormikControl
                       control='input'
-                      type='personalEmail'
-                      label='Personal Email'
-                      name='personalEmail'
-                      error={errors.personalEmail && touched.personalEmail}
+                      type='icNo'
+                      label='IC no.'
+                      name='icNo'
+                      error={errors.icNo && touched.icNo}
                     />
                   </CardContainer>
-                </FlexColumnContainer>
-              </FlexRowContainer>
-              <FlexRowContainer justifyContentRight>
-                <SecondaryButton marginRight30>
-                  <StyledText tertiaryText>Cancel</StyledText>
-                </SecondaryButton>
-                <StyledButton type='submit'>
-                  <StyledText primaryText>Submit</StyledText>
-                </StyledButton>
-              </FlexRowContainer>
-            </Form>
-          )}
-        </Formik>
-      </InnerContainer>
-    </StyledContainer>
+                  <FlexColumnContainer paddingLeft70>
+                    <CardContainer>
+                      <StyledTitle subtitle>System Registration</StyledTitle>
+                      <Line />
+                      <FormikControl
+                        control='select'
+                        label='Role'
+                        name='role'
+                        options={roleOptions}
+                        error={errors.role && touched.role}
+                      />
+                      <StyledTitle subtitle paddingTop25>
+                        Contact Information
+                      </StyledTitle>
+                      <Line />
+                      <FormikControl
+                        control='input'
+                        type='contactNo'
+                        label='Contact no.'
+                        name='contactNo'
+                        error={errors.contactNo && touched.contactNo}
+                      />
+                      <FormikControl
+                        control='input'
+                        type='personalEmail'
+                        label='Personal Email'
+                        name='personalEmail'
+                        error={errors.personalEmail && touched.personalEmail}
+                      />
+                    </CardContainer>
+                  </FlexColumnContainer>
+                </FlexRowContainer>
+                <FlexRowContainer justifyContentRight>
+                  <SecondaryButton marginRight30>
+                    <StyledText tertiaryText>Cancel</StyledText>
+                  </SecondaryButton>
+                  <StyledButton type='submit'>
+                    <StyledText primaryText>Submit</StyledText>
+                  </StyledButton>
+                </FlexRowContainer>
+              </Form>
+            )}
+          </Formik>
+        </InnerContainer>
+      </StyledContainer>
+    </>
   );
 };
 

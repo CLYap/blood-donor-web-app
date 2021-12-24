@@ -7,6 +7,7 @@ import {
   Colors,
   Line,
 } from '../components/global-styles';
+import SideBar from '../components/navigation/side-bar';
 
 const { theme, lightTheme } = Colors;
 
@@ -82,42 +83,45 @@ const SearchDonor = () => {
   ];
 
   return (
-    <StyledContainer secondaryBackground>
-      <InnerContainer>
-        <StyledTitle pageTitle>Search Donor</StyledTitle>
-        <Line />
-        <MaterialTable
-          title=''
-          data={donorLs}
-          columns={columns}
-          options={{
-            headerStyle: {
-              backgroundColor: lightTheme,
-              color: theme,
-              fontSize: 23,
-            },
-            margin: 10,
-            pageSizeOptions: [5],
-            searchFieldStyle: {
-              height: '40px',
+    <>
+      <SideBar />
+      <StyledContainer secondaryBackground>
+        <InnerContainer>
+          <StyledTitle pageTitle>Search Donor</StyledTitle>
+          <Line />
+          <MaterialTable
+            title=''
+            data={donorLs}
+            columns={columns}
+            options={{
+              headerStyle: {
+                backgroundColor: lightTheme,
+                color: theme,
+                fontSize: 23,
+              },
+              margin: 10,
+              pageSizeOptions: [5],
+              searchFieldStyle: {
+                height: '40px',
+                fontSize: 15,
+                marginBottom: 20,
+                width: '300px',
+              },
+            }}
+            style={{
+              minWidth: '50rem',
+              padding: 50,
+              marginTop: 40,
+              zIndex: 1,
               fontSize: 15,
-              marginBottom: 20,
-              width: '300px',
-            },
-          }}
-          style={{
-            minWidth: '50rem',
-            padding: 50,
-            marginTop: 40,
-            zIndex: 1,
-            fontSize: 15,
-          }}
-          localization={{
-            toolbar: { searchPlaceholder: 'Search by IC No. / Blood Group' },
-          }}
-        ></MaterialTable>
-      </InnerContainer>
-    </StyledContainer>
+            }}
+            localization={{
+              toolbar: { searchPlaceholder: 'Search by IC No. / Blood Group' },
+            }}
+          ></MaterialTable>
+        </InnerContainer>
+      </StyledContainer>
+    </>
   );
 };
 

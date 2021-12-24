@@ -14,6 +14,7 @@ import {
 } from '../components/global-styles';
 import FormikControl from '../components/form/formik-control';
 import moment from 'moment';
+import SideBar from '../components/navigation/side-bar';
 
 const Appointment = () => {
   const [slots, setSlots] = useState([]);
@@ -70,54 +71,57 @@ const Appointment = () => {
   };
 
   return (
-    <StyledContainer secondaryBackground>
-      <InnerContainer>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}
-        >
-          {({ errors, touched }) => (
-            <Form>
-              <CardContainer>
-                <StyledTitle subtitle>Create Appointment Slot</StyledTitle>
-                <Line />
-                <FormikControl
-                  control='input'
-                  type='date'
-                  label='Date'
-                  name='date'
-                  min={moment(new Date()).format('YYYY-MM-DD')}
-                  error={errors.date && touched.date}
-                />
-                <FormikControl
-                  control='input'
-                  type='availableSlot'
-                  label='Number of Available Slots per session'
-                  name='availableSlot'
-                  error={errors.availableSlot && touched.availableSlot}
-                />
-                <FormikControl
-                  control='checkbox'
-                  label='Time Slots'
-                  name='timeSlots'
-                  options={slots}
-                  error={errors.timeSlots && touched.timeSlots}
-                />
-              </CardContainer>
-              <FlexRowContainer justifyContentRight>
-                <SecondaryButton marginRight30>
-                  <StyledText tertiaryText>Cancel</StyledText>
-                </SecondaryButton>
-                <StyledButton type='submit'>
-                  <StyledText primaryText>Submit</StyledText>
-                </StyledButton>
-              </FlexRowContainer>
-            </Form>
-          )}
-        </Formik>
-      </InnerContainer>
-    </StyledContainer>
+    <>
+      <SideBar />
+      <StyledContainer secondaryBackground>
+        <InnerContainer>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {({ errors, touched }) => (
+              <Form>
+                <CardContainer>
+                  <StyledTitle subtitle>Create Appointment Slot</StyledTitle>
+                  <Line />
+                  <FormikControl
+                    control='input'
+                    type='date'
+                    label='Date'
+                    name='date'
+                    min={moment(new Date()).format('YYYY-MM-DD')}
+                    error={errors.date && touched.date}
+                  />
+                  <FormikControl
+                    control='input'
+                    type='availableSlot'
+                    label='Number of Available Slots per session'
+                    name='availableSlot'
+                    error={errors.availableSlot && touched.availableSlot}
+                  />
+                  <FormikControl
+                    control='checkbox'
+                    label='Time Slots'
+                    name='timeSlots'
+                    options={slots}
+                    error={errors.timeSlots && touched.timeSlots}
+                  />
+                </CardContainer>
+                <FlexRowContainer justifyContentRight>
+                  <SecondaryButton marginRight30>
+                    <StyledText tertiaryText>Cancel</StyledText>
+                  </SecondaryButton>
+                  <StyledButton type='submit'>
+                    <StyledText primaryText>Submit</StyledText>
+                  </StyledButton>
+                </FlexRowContainer>
+              </Form>
+            )}
+          </Formik>
+        </InnerContainer>
+      </StyledContainer>
+    </>
   );
 };
 

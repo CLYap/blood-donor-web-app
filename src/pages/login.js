@@ -11,12 +11,12 @@ import {
   StyledText,
 } from '../components/global-styles';
 import FormikControl from '../components/form/formik-control';
-
-//login context
+import { useNavigate } from 'react-router-dom';
 import { useLogin } from '../components/context/login-provider';
 
 const Login = () => {
   const { setIsLoggedIn } = useLogin();
+  const navigate = useNavigate();
 
   const initialValues = {
     email: '',
@@ -32,6 +32,7 @@ const Login = () => {
     setTimeout(() => {
       console.log(values);
       setIsLoggedIn(true);
+      navigate('/home');
     }, 3000);
   };
 
