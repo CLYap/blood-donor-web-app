@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   StyledNavBar,
   MenuBar,
@@ -11,15 +11,16 @@ import { FaBars } from 'react-icons/fa';
 import { AiOutlineClose, AiFillHome } from 'react-icons/ai';
 import { BsFillPersonFill, BsCalendarDayFill } from 'react-icons/bs';
 import { IoLocationSharp } from 'react-icons/io5';
-import { Colors } from '../global-styles';
+import { StyledButton, StyledText, Colors } from '../global-styles';
 import SideBarSubmenu from './side-bar-submenu';
+import AuthContext from '../context/auth-context';
 
 const { tertiary } = Colors;
 
 const SideBarData = [
   {
     title: 'Home',
-    path: '/',
+    path: '/home',
     icon: <AiFillHome />,
   },
   {
@@ -54,13 +55,19 @@ const SideBar = () => {
   const showSideBar = () => {
     setSideBar(!sidebar);
   };
+  let { logoutUser, role } = useContext(AuthContext);
 
   return (
     <>
       <IconContext.Provider value={{ color: tertiary, size: 25 }}>
-        <StyledNavBar>
+        <StyledNavBar justifyBetween>
           <MenuBar to='#'>
             <FaBars onClick={showSideBar} />
+          </MenuBar>
+          <MenuBar to='#'>
+            <StyledButton onClick={logoutUser}>
+              <StyledText primaryText>Log out {role}</StyledText>
+            </StyledButton>
           </MenuBar>
         </StyledNavBar>
         <NavMenu active={sidebar}>

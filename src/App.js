@@ -1,14 +1,14 @@
 import { GlobalStyle } from './components/global-styles';
 import Navigator from './components/navigation/navigator';
-import LoginProvider from './components/context/login-provider';
+import { AuthProvider } from './components/context/auth-context';
 
 function App() {
   return (
     <div>
-      <LoginProvider>
+      <AuthProvider>
         <GlobalStyle />
         <Navigator />
-      </LoginProvider>
+      </AuthProvider>
     </div>
   );
 }

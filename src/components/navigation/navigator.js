@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Login from '../../pages/login';
 import Home from '../../pages/home';
@@ -9,19 +9,23 @@ import SearchDonor from '../../pages/search-donor';
 import DonationHistory from '../../pages/donation-history';
 import UpdateDonation from '../../pages/update-donation';
 import DonorDetails from '../../pages/donor-details';
-import { useLogin } from '../context/login-provider';
+import AuthContext from '../../components/context/auth-context';
 
 const Navigator = () => {
-  const { isLoggedIn } = useLogin();
-
+  let { isLoggedIn, role } = useContext(AuthContext);
   return (
     <Routes>
-      {!isLoggedIn && <Route path='/login' element={<Login />} />}
-      {isLoggedIn && (
+      {!isLoggedIn ? (
+        <Route path='/login' element={<Login />} />
+      ) : (
         <>
           <Route path='/home' element={<Home />} />
-          <Route path='/create-account/donor' element={<CreateDonor />} />
-          <Route path='/create-account/staff' element={<CreateStaff />} />
+          {role === 'ROLE_ADMIN' ? (
+            <>
+              <Route path='/create-account/donor' element={<CreateDonor />} />
+              <Route path='/create-account/staff' element={<CreateStaff />} />
+            </>
+          ) : null}
           <Route path='/donor' element={<SearchDonor />} />
           <Route path='/donor/donation' element={<DonationHistory />} />
           <Route path='/donor/donation/update' element={<UpdateDonation />} />
