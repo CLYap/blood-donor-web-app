@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Colors } from '../global-styles';
 
-const { primary, secondary, tertiary, darkLight, theme, lightTheme } = Colors;
+const { primary, tertiary, theme, lightTheme } = Colors;
 
 export const StyledNavBar = styled.div`
   background-color: ${theme};
@@ -10,6 +10,12 @@ export const StyledNavBar = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  ${(props) =>
+    props.justifyBetween &&
+    `
+    justify-content: space-between;
+  `}
 `;
 
 export const MenuBar = styled(Link)`

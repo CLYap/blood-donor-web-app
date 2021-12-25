@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -11,12 +11,10 @@ import {
   StyledText,
 } from '../components/global-styles';
 import FormikControl from '../components/form/formik-control';
-import { useNavigate } from 'react-router-dom';
-import { useLogin } from '../components/context/login-provider';
+import AuthContext from '../components/context/auth-context';
 
 const Login = () => {
-  const { setIsLoggedIn } = useLogin();
-  const navigate = useNavigate();
+  let { loginUser } = useContext(AuthContext);
 
   const initialValues = {
     email: '',
@@ -29,11 +27,7 @@ const Login = () => {
   });
 
   const onSubmit = (values) => {
-    setTimeout(() => {
-      console.log(values);
-      setIsLoggedIn(true);
-      navigate('/home');
-    }, 3000);
+    loginUser(values);
   };
 
   return (
