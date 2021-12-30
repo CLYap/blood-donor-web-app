@@ -12,41 +12,26 @@ import {
   Line,
   FlexRowContainer,
   FlexColumnContainer,
+  ReadOnlyField,
 } from '../components/global-styles';
 import FormikControl from '../components/form/formik-control';
+import {
+  InputFieldContainer,
+  StyledLabel,
+} from '../components/form/form.styles';
 import SideBar from '../components/navigation/side-bar';
-
-const nurseInfo = {
-  //from redux
-  staffId: 'siti@gmail.com',
-  staffName: 'Siti Noraidah',
-  centreId: '1',
-  centreName: 'Pantai Hospital',
-  role: 'ROLE_NURSE',
-};
-
-const donor = {
-  donorId: '991203149553',
-  donorName: 'Chee Ling Yap',
-  bloodType: 'O+',
-};
+import { parseDateTime } from '../components/utils';
+import { createDonationRecord } from '../components/services/donation-service';
 
 const UpdateDonation = () => {
   const initialValues = {
-    centreId: nurseInfo.centreId,
-    centreName: nurseInfo.centreName,
-    staffId: nurseInfo.staffId,
-    staffName: nurseInfo.staffName,
-    donorId: donor.donorId,
-    donorName: donor.donorName,
-    bloodType: donor.bloodType,
     date: '',
     time: '',
     bloodUnit: '',
     bP: '',
     haemoglobinCount: '',
     pulse: '',
-    covidAntibodyTest: '',
+    covidAntibody: '',
   };
 
   const testOptions = [
@@ -71,11 +56,15 @@ const UpdateDonation = () => {
       .integer()
       .typeError('Enter numeric characters only')
       .required('Required!'),
-    covidAntibodyTest: Yup.string().required('Required!'),
+    covidAntibody: Yup.string().required('Required!'),
   });
 
   const onSubmit = (values) => {
+    values.time = parseDateTime(values.date, values.time);
     console.log(values);
+    createDonationRecord('S0001', 'D0001', values).then(() => {
+      console.log('success');
+    });
   };
 
   return (
@@ -111,70 +100,63 @@ const UpdateDonation = () => {
                       />
                     </FlexRowContainer>
                     <FlexRowContainer>
-                      <FormikControl
-                        control='input'
-                        type='donorId'
-                        label='Donor ID'
-                        name='donorId'
-                        disabled={true}
-                      />
+                      <InputFieldContainer>
+                        <ReadOnlyField>
+                          <StyledLabel>Donor ID</StyledLabel>
+                          <StyledText>D0001</StyledText>
+                        </ReadOnlyField>
+                      </InputFieldContainer>
                       <FlexColumnContainer paddingLeft35>
-                        <FormikControl
-                          control='input'
-                          type='donorName'
-                          label='Donor Name'
-                          name='donorName'
-                          disabled={true}
-                        />
+                        <InputFieldContainer>
+                          <ReadOnlyField>
+                            <StyledLabel>Donor Name</StyledLabel>
+                            <StyledText>Yap Chee Ling</StyledText>
+                          </ReadOnlyField>
+                        </InputFieldContainer>
                       </FlexColumnContainer>
                     </FlexRowContainer>
                     <FlexRowContainer>
-                      <FormikControl
-                        control='input'
-                        type='centreId'
-                        label='Blood Centre ID'
-                        name='centreId'
-                        disabled={true}
-                      />
+                      <InputFieldContainer>
+                        <ReadOnlyField>
+                          <StyledLabel>Blood Centre ID</StyledLabel>
+                          <StyledText>BC0001</StyledText>
+                        </ReadOnlyField>
+                      </InputFieldContainer>
                       <FlexColumnContainer paddingLeft35>
-                        <FormikControl
-                          control='input'
-                          type='centreName'
-                          label='Blood Centre'
-                          name='centreName'
-                          disabled={true}
-                        />
+                        <InputFieldContainer>
+                          <ReadOnlyField>
+                            <StyledLabel>Blood Centre Name</StyledLabel>
+                            <StyledText>Pantai Hospital</StyledText>
+                          </ReadOnlyField>
+                        </InputFieldContainer>
                       </FlexColumnContainer>
                     </FlexRowContainer>
                     <FlexRowContainer>
-                      <FormikControl
-                        control='input'
-                        type='staffId'
-                        label='Nurse ID'
-                        name='staffId'
-                        disabled={true}
-                      />
+                      <InputFieldContainer>
+                        <ReadOnlyField>
+                          <StyledLabel>Nurse ID</StyledLabel>
+                          <StyledText>S0001</StyledText>
+                        </ReadOnlyField>
+                      </InputFieldContainer>
                       <FlexColumnContainer paddingLeft35>
-                        <FormikControl
-                          control='input'
-                          type='staffName'
-                          label='Nurse Name'
-                          name='staffName'
-                          disabled={true}
-                        />
+                        <InputFieldContainer>
+                          <ReadOnlyField>
+                            <StyledLabel>Nurse Name</StyledLabel>
+                            <StyledText>Siti Noraidah</StyledText>
+                          </ReadOnlyField>
+                        </InputFieldContainer>
                       </FlexColumnContainer>
                     </FlexRowContainer>
                   </CardContainer>
                   <FlexColumnContainer paddingLeft70>
                     <CardContainer>
                       <FlexRowContainer>
-                        <FormikControl
-                          control='input'
-                          type='bloodType'
-                          label='Blood Group'
-                          name='bloodType'
-                          disabled={true}
-                        />
+                        <InputFieldContainer>
+                          <ReadOnlyField>
+                            <StyledLabel>Blood Type</StyledLabel>
+                            <StyledText>O+</StyledText>
+                          </ReadOnlyField>
+                        </InputFieldContainer>
                         <FlexColumnContainer paddingLeft35>
                           <FormikControl
                             control='input'
@@ -210,12 +192,10 @@ const UpdateDonation = () => {
                       />
                       <FormikControl
                         control='select'
-                        label='Covid-19 Antibody Test'
-                        name='covidAntibodyTest'
+                        label='Covid-19 Antibody'
+                        name='covidAntibody'
                         options={testOptions}
-                        error={
-                          errors.covidAntibodyTest && touched.covidAntibodyTest
-                        }
+                        error={errors.covidAntibody && touched.covidAntibody}
                       />
                     </CardContainer>
                   </FlexColumnContainer>

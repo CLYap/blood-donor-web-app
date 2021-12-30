@@ -12,7 +12,7 @@ import {
   Colors,
 } from '../components/global-styles';
 import { FiExternalLink } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import SideBar from '../components/navigation/side-bar';
 
 const { primary } = Colors;
@@ -39,8 +39,12 @@ const profileData = {
 
 const DonorDetails = () => {
   const navigate = useNavigate();
-  const routeChange = () => {
+  const { donorId } = useParams();
+  const goToDonationHistory = () => {
     navigate('/donor/donation');
+  };
+  const goToLiveChat = () => {
+    navigate('/live-chat/' + donorId);
   };
 
   return (
@@ -48,16 +52,27 @@ const DonorDetails = () => {
       <SideBar />
       <StyledContainer secondaryBackground>
         <InnerContainer>
+          <StyledTitle>url params {donorId}</StyledTitle>
           <FlexRowContainer justifyContentSpaceBetween>
             <StyledTitle pageTitle>Donor Details</StyledTitle>
-            <StyledButton onClick={routeChange}>
-              <FlexRowContainer>
-                <FiExternalLink color={primary} size={25} />
-                <StyledText primaryText buttonText>
-                  View Donation History
-                </StyledText>
-              </FlexRowContainer>
-            </StyledButton>
+            <div>
+              <StyledButton marginRight30 onClick={goToDonationHistory}>
+                <FlexRowContainer>
+                  <FiExternalLink color={primary} size={25} />
+                  <StyledText primaryText buttonText>
+                    View Donation History
+                  </StyledText>
+                </FlexRowContainer>
+              </StyledButton>
+              <StyledButton onClick={goToLiveChat}>
+                <FlexRowContainer>
+                  <FiExternalLink color={primary} size={25} />
+                  <StyledText primaryText buttonText>
+                    Send Blood Request
+                  </StyledText>
+                </FlexRowContainer>
+              </StyledButton>
+            </div>
           </FlexRowContainer>
           <Line />
           <FlexRowContainer>

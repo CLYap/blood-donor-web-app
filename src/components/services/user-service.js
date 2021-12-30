@@ -16,8 +16,8 @@ export const authenticationService = (values) => {
   );
 };
 
-export const staffProfileService = () => {
-  return API.get('/users/staffs').then((response) => {
-    console.log(response);
-  });
+export const staffProfileService = (email) => {
+  return API.get('/user/staff/profile/' + email).then((response) =>
+    response.status === 200 ? response : null
+  );
 };

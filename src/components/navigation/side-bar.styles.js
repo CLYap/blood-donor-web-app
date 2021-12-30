@@ -67,6 +67,13 @@ export const NavText = styled.li`
       `
       padding: 0 50px;
     `}
+
+    ${(props) =>
+      props.table &&
+      `
+      width: 100%;
+      padding: 0;
+    `}
   }
 
   a:hover {

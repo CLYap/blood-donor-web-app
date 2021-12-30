@@ -34,10 +34,10 @@ API.interceptors.response.use(
   (error) => {
     const originalRequest = error.config;
 
-    if (error.response.status === 403 && originalRequest.url === '/login') {
+    if (error.response.status === 401 && originalRequest.url === '/login') {
       return Promise.reject(error);
     }
-    if (error.response.status === 403 && !originalRequest._retry) {
+    if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       const tokens = localStorage.getItem('authTokens');
       const refreshToken = JSON.parse(tokens).refresh_token;
@@ -47,7 +47,6 @@ API.interceptors.response.use(
           Authorization: header,
         },
       }).then((response) => {
-        console.log(response);
         localStorage.setItem('authTokens', JSON.stringify(response.data));
       });
     }

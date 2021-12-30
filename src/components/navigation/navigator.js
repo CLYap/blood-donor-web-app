@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Login from '../../pages/login';
 import Home from '../../pages/home';
@@ -9,10 +9,12 @@ import SearchDonor from '../../pages/search-donor';
 import DonationHistory from '../../pages/donation-history';
 import UpdateDonation from '../../pages/update-donation';
 import DonorDetails from '../../pages/donor-details';
-import AuthContext from '../../components/context/auth-context';
+import LiveChat from '../../pages/live-chat';
+import DonorLocation from '../../pages/donor-location';
+import { useUserInfo } from '../../components/context/user-info-provider';
 
 const Navigator = () => {
-  let { isLoggedIn, role } = useContext(AuthContext);
+  let { isLoggedIn, role } = useUserInfo();
   return (
     <Routes>
       {!isLoggedIn ? (
@@ -20,16 +22,18 @@ const Navigator = () => {
       ) : (
         <>
           <Route path='/home' element={<Home />} />
-          {role === 'ROLE_ADMIN' ? (
+          {role && role.includes('ROLE_ADMIN') && (
             <>
               <Route path='/create-account/donor' element={<CreateDonor />} />
               <Route path='/create-account/staff' element={<CreateStaff />} />
+              <Route path='/donor-location' element={<DonorLocation />} />
+              <Route path='/live-chat/:donorId' element={<LiveChat />} />
             </>
-          ) : null}
+          )}
           <Route path='/donor' element={<SearchDonor />} />
+          <Route path='/donor/:donorId' element={<DonorDetails />} />
           <Route path='/donor/donation' element={<DonationHistory />} />
           <Route path='/donor/donation/update' element={<UpdateDonation />} />
-          <Route path='/donor/details' element={<DonorDetails />} />
           <Route path='/appointment' element={<Appointment />} />
         </>
       )}

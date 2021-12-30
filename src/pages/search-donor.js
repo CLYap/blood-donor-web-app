@@ -6,8 +6,11 @@ import {
   StyledTitle,
   Colors,
   Line,
+  StyledButton,
+  StyledText,
 } from '../components/global-styles';
 import SideBar from '../components/navigation/side-bar';
+import { useNavigate } from 'react-router-dom';
 
 const { theme, lightTheme } = Colors;
 
@@ -63,6 +66,7 @@ const donorLs = [
 ];
 
 const SearchDonor = () => {
+  const navigate = useNavigate();
   const columns = [
     { title: 'IC No.', field: 'icNo', searchable: true, sorting: false },
     { title: 'First Name', field: 'fName', searchable: false, sorting: false },
@@ -82,11 +86,18 @@ const SearchDonor = () => {
     },
   ];
 
+  const goToDetailPage = () => {
+    navigate('/donor/D0001');
+  };
+
   return (
     <>
       <SideBar />
       <StyledContainer secondaryBackground>
         <InnerContainer>
+          <StyledButton onClick={goToDetailPage}>
+            <StyledText>pass params to detail page</StyledText>
+          </StyledButton>
           <StyledTitle pageTitle>Search Donor</StyledTitle>
           <Line />
           <MaterialTable
@@ -118,6 +129,13 @@ const SearchDonor = () => {
             localization={{
               toolbar: { searchPlaceholder: 'Search by IC No. / Blood Group' },
             }}
+            actions={[
+              {
+                icon: 'edit',
+                tooltip: 'Edit ',
+                onClick: () => goToDetailPage(),
+              },
+            ]}
           ></MaterialTable>
         </InnerContainer>
       </StyledContainer>

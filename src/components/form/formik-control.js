@@ -27,17 +27,11 @@ const FormikControl = (props) => {
 };
 
 const Input = (props) => {
-  const { label, name, error, disabled, ...rest } = props;
+  const { label, name, error, ...rest } = props;
   return (
     <InputFieldContainer>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
-      <StyledTextInput
-        errors={error ? 1 : 0}
-        disabled={disabled ? 1 : 0}
-        id={name}
-        name={name}
-        {...rest}
-      />
+      <StyledTextInput errors={error ? 1 : 0} id={name} name={name} {...rest} />
       <ErrorMessage name={name}>
         {(msg) => <StyledText errorText>{msg}</StyledText>}
       </ErrorMessage>

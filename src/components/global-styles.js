@@ -143,6 +143,24 @@ export const StyledText = styled.p`
     padding-left: 10px;
     align-self: center;
   `}
+
+  ${(props) =>
+    props.fontSize15 &&
+    `
+    font-size: 15px;
+  `}
+
+  ${(props) =>
+    props.breakWord &&
+    `
+    word-break: break-word;
+  `}
+
+  ${(props) =>
+    props.paddingTop15 &&
+    `
+    padding-top: 15px;
+  `}
 `;
 
 export const StyledButton = styled.button`
@@ -172,6 +190,13 @@ export const CardContainer = styled.div`
   padding: 30px;
   margin: 20px 0px;
   border-radius: 30px;
+
+  ${(props) =>
+    props.scroll &&
+    `
+    overflow-y: scroll;
+    height: 500px;
+  `}
 `;
 
 export const Line = styled.div`
@@ -218,4 +243,86 @@ export const FlexColumnContainer = styled.div`
 
 export const ColumnThreeContainer = styled.div`
   column-count: 3;
+`;
+
+export const ReadOnlyField = styled.div`
+  background-color: ${secondary};
+  padding: 25px 10px 5px 10px;
+  border-radius: 10px;
+  color: ${tertiary};
+  border-width: 3px;
+  border-style: solid;
+  border-color: ${secondary};
+  min-width: 250px;
+  opacity: 0.9;
+`;
+
+export const SearchBar = styled.input`
+  background-color: ${primary};
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 18px;
+  color: ${tertiary};
+  border-width: 3px;
+  border-style: solid;
+  border-color: ${secondary};
+`;
+
+export const ListItem = styled.div`
+  min-width: 1000px;
+  display: flex;
+
+  ${(props) =>
+    props.header &&
+    `
+    background-color: ${theme};
+  `}
+`;
+
+export const ListItemBlock = styled.div`
+  min-width: 200px;
+  padding: 20px;
+  flex-direction: column;
+`;
+
+export const Messages = styled.div`
+  height: 650px;
+  overflow-y: auto;
+  background-color: ${primary};
+  padding: 20px;
+  width: 800px;
+  margin: 30px 0px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const MessageBlock = styled.div`
+  background-color: ${lightTheme};
+  border-radius: 15px;
+  width: 30%;
+  margin: 15px;
+  padding: 12px;
+
+  ${(props) =>
+    props.ownBlock === true &&
+    `
+    background-color: ${secondary};
+    display: flex;
+    align-self: flex-end;
+  `}
+`;
+
+export const TextBar = styled.input`
+  background-color: ${primary};
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 18px;
+  color: ${tertiary};
+  border-width: 3px;
+  border-style: solid;
+  border-color: ${secondary};
+  width: 700px;
+  margin: 25px 0px;
+  margin-right: 30px;
 `;

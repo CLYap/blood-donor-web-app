@@ -1,11 +1,14 @@
-import React, { createContext, useState } from 'react';
-import { authenticationService } from '../services/user-service';
+import React, { createContext, useState, useContext } from 'react';
+import {
+  authenticationService,
+  staffProfileService,
+} from '../services/user-service';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
-export const AuthContext = createContext();
+const UserInfoContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export const UserInfoProvider = ({ children }) => {
   const navigate = useNavigate();
 
   let [authTokens, setAuthTokens] = useState(() =>
@@ -24,13 +27,31 @@ export const AuthProvider = ({ children }) => {
       : null
   );
 
+  let [staffInfo, setStaffInfo] = useState(() =>
+    localStorage.getItem('userProfile')
+      ? JSON.parse(localStorage.getItem('userProfile'))
+      : null
+  );
+
   let loginUser = (values) => {
     authenticationService(values).then((data) => {
       const tokens = data.data;
       setAuthTokens(tokens);
       localStorage.setItem('authTokens', JSON.stringify(tokens));
+
+      //once login get profile
+      getStaffProfile(values.email);
+
       setLoggedIn(true);
       setRole(jwt_decode(tokens.access_token).roles);
+    });
+  };
+
+  const getStaffProfile = (email) => {
+    staffProfileService(email).then((data) => {
+      const profile = data.data;
+      setStaffInfo(profile);
+      localStorage.setItem('userProfile', JSON.stringify(profile));
     });
   };
 
@@ -38,6 +59,7 @@ export const AuthProvider = ({ children }) => {
     setAuthTokens(null);
     setLoggedIn(false);
     localStorage.removeItem('authTokens');
+    localStorage.removeItem('userProfile');
     navigate('/login');
   };
 
@@ -47,11 +69,16 @@ export const AuthProvider = ({ children }) => {
     isLoggedIn: isLoggedIn,
     logoutUser: logoutUser,
     role: role,
+    staffInfo: staffInfo,
   };
 
   return (
-    <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
+    <UserInfoContext.Provider value={contextData}>
+      {children}
+    </UserInfoContext.Provider>
   );
 };
 
-export default AuthContext;
+export const useUserInfo = () => useContext(UserInfoContext);
+
+export default UserInfoContext;

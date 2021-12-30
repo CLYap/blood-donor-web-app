@@ -33,12 +33,6 @@ export const StyledTextInput = styled(Field)`
     `
     padding: 26px 10px 5px 10px;
   `}
-
-  ${(props) =>
-    props.disabled === 1 &&
-    `
-    background-color: ${secondary};
-  `}
 `;
 
 export const StyledLabel = styled.label`
@@ -60,4 +54,11 @@ export const CheckboxLabel = styled.label`
 export const StyledErrorMessage = styled(ErrorMessage)`
   color: ${theme};
   padding: 0px 10px;
+`;
+
+export const StyledChatForm = styled.form`
+  width: 80%;
+  height: 30px;
+  display: flex;
+  align-items: centre;
 `;

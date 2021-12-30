@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -11,10 +11,10 @@ import {
   StyledText,
 } from '../components/global-styles';
 import FormikControl from '../components/form/formik-control';
-import AuthContext from '../components/context/auth-context';
+import { useUserInfo } from '../components/context/user-info-provider';
 
 const Login = () => {
-  let { loginUser } = useContext(AuthContext);
+  let { loginUser } = useUserInfo();
 
   const initialValues = {
     email: '',
