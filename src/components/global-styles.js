@@ -197,6 +197,21 @@ export const CardContainer = styled.div`
     overflow-y: scroll;
     height: 500px;
   `}
+
+  ${(props) =>
+    props.chatContainer &&
+    `
+    min-width: 8rem;
+  `}
+
+  ${(props) =>
+    props.chatsList &&
+    `
+    min-width: 0rem;
+    width: 20rem;
+    height: 200px;
+    overflow-x: hidden;
+  `}
 `;
 
 export const Line = styled.div`
@@ -283,6 +298,12 @@ export const ListItemBlock = styled.div`
   min-width: 200px;
   padding: 20px;
   flex-direction: column;
+
+  ${(props) =>
+    props.isChat &&
+    `
+    min-width: 0px;
+  `}
 `;
 
 export const Messages = styled.div`

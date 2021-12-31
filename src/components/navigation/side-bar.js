@@ -11,6 +11,7 @@ import { FaBars } from 'react-icons/fa';
 import { AiOutlineClose, AiFillHome } from 'react-icons/ai';
 import { BsFillPersonFill, BsCalendarDayFill } from 'react-icons/bs';
 import { IoLocationSharp } from 'react-icons/io5';
+import { MdBloodtype } from 'react-icons/md';
 import { StyledButton, StyledText, Colors } from '../global-styles';
 import SideBarSubmenu from './side-bar-submenu';
 import { useUserInfo } from '../context/user-info-provider';
@@ -39,8 +40,13 @@ const SideBarData = [
     ],
   },
   {
-    title: 'Search Donor',
+    title: 'Donor Details',
     path: '/donor',
+    icon: <MdBloodtype />,
+  },
+  {
+    title: 'Locate Donor',
+    path: '/donor-location',
     icon: <IoLocationSharp />,
   },
   {

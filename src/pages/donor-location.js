@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import SideBar from '../components/navigation/side-bar';
 import { db } from '../components/services/firebase-config';
 import { collection, query, onSnapshot } from 'firebase/firestore';
 import { useUserInfo } from '../components/context/user-info-provider';
@@ -62,104 +63,114 @@ const DonorLocation = () => {
   };
 
   return (
-    <StyledContainer secondaryBackground>
-      <InnerContainer>
-        <StyledTitle pageTitle>Donor Location Live Update</StyledTitle>
-        <SearchBar
-          type='text'
-          placeholder='Search Blood Type'
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-          }}
-        />
-        <CardContainer scroll>
-          <ListItem header>
-            <ListItemBlock>
-              <StyledText primaryText>Donor ID</StyledText>
-            </ListItemBlock>
-            <ListItemBlock>
-              <StyledText primaryText>Donor First Name</StyledText>
-            </ListItemBlock>
-            <ListItemBlock>
-              <StyledText primaryText>Donor Last Name</StyledText>
-            </ListItemBlock>
-            <ListItemBlock>
-              <StyledText primaryText>Blood Type</StyledText>
-            </ListItemBlock>
-            <ListItemBlock>
-              <StyledText primaryText>Contact No</StyledText>
-            </ListItemBlock>
-            <ListItemBlock>
-              <StyledText primaryText>Distance</StyledText>
-            </ListItemBlock>
-            <ListItemBlock>
-              <StyledText primaryText>Last Update</StyledText>
-            </ListItemBlock>
-          </ListItem>
-          {donors &&
-            donors
-              .filter((val) => {
-                return filterByBloodType(val);
-              })
-              .map((donor) => {
-                return (
-                  <div key={donor.donorId}>
-                    <NavText table>
-                      <ListItem>
-                        <Link to={`/donor/${donor.donorId}`}>
-                          <ListItemBlock>
-                            <StyledText>{donor.donorId}</StyledText>
-                          </ListItemBlock>
-                          <ListItemBlock>
-                            <StyledText>
-                              {donor.donorData && donor.donorData.fName}
-                            </StyledText>
-                          </ListItemBlock>
-                          <ListItemBlock>
-                            <StyledText>
-                              {donor.donorData && donor.donorData.lName}
-                            </StyledText>
-                          </ListItemBlock>
-                          <ListItemBlock>
-                            <StyledText>
-                              {donor.donorData && donor.donorData.bloodType}
-                            </StyledText>
-                          </ListItemBlock>
-                          <ListItemBlock>
-                            <StyledText>
-                              {donor.donorData && donor.donorData.contactNo}
-                            </StyledText>
-                          </ListItemBlock>
-                          <ListItemBlock>
-                            <StyledText>
-                              {donor.donorData &&
-                                subtractDistance(
-                                  donor.donorData.latitude,
-                                  donor.donorData.longitude
-                                )}{' '}
-                              km
-                            </StyledText>
-                          </ListItemBlock>
-                          <ListItemBlock>
-                            <StyledText>
-                              {donor.donorData && (
-                                <Moment fromNow>
-                                  {donor.donorData &&
-                                    donor.donorData.timestamp.toDate()}
-                                </Moment>
-                              )}
-                            </StyledText>
-                          </ListItemBlock>
-                        </Link>
-                      </ListItem>
-                    </NavText>
-                    <Line />
-                  </div>
-                );
-              })}
-        </CardContainer>
-      </InnerContainer>
-    </StyledContainer>
+    <>
+      <SideBar />
+      <StyledContainer secondaryBackground>
+        <InnerContainer>
+          <StyledTitle pageTitle>Donor Location Live Update</StyledTitle>
+          <SearchBar
+            type='text'
+            placeholder='Search Blood Type'
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
+          />
+          <CardContainer scroll>
+            <ListItem header>
+              <ListItemBlock>
+                <StyledText primaryText>Donor ID</StyledText>
+              </ListItemBlock>
+              <ListItemBlock>
+                <StyledText primaryText>Donor First Name</StyledText>
+              </ListItemBlock>
+              <ListItemBlock>
+                <StyledText primaryText>Donor Last Name</StyledText>
+              </ListItemBlock>
+              <ListItemBlock>
+                <StyledText primaryText>Blood Type</StyledText>
+              </ListItemBlock>
+              <ListItemBlock>
+                <StyledText primaryText>Contact No</StyledText>
+              </ListItemBlock>
+              <ListItemBlock>
+                <StyledText primaryText>Distance</StyledText>
+              </ListItemBlock>
+              <ListItemBlock>
+                <StyledText primaryText>Last Update</StyledText>
+              </ListItemBlock>
+            </ListItem>
+            {donors &&
+              donors
+                .filter((val) => {
+                  return filterByBloodType(val);
+                })
+                .map((donor) => {
+                  return (
+                    <div key={donor.donorId}>
+                      <NavText table>
+                        <ListItem>
+                          <Link
+                            to={`/donor/${donor.donorId}_${
+                              donor.donorData &&
+                              donor.donorData.fName +
+                                '-' +
+                                donor.donorData.lName
+                            }`}
+                          >
+                            <ListItemBlock>
+                              <StyledText>{donor.donorId}</StyledText>
+                            </ListItemBlock>
+                            <ListItemBlock>
+                              <StyledText>
+                                {donor.donorData && donor.donorData.fName}
+                              </StyledText>
+                            </ListItemBlock>
+                            <ListItemBlock>
+                              <StyledText>
+                                {donor.donorData && donor.donorData.lName}
+                              </StyledText>
+                            </ListItemBlock>
+                            <ListItemBlock>
+                              <StyledText>
+                                {donor.donorData && donor.donorData.bloodType}
+                              </StyledText>
+                            </ListItemBlock>
+                            <ListItemBlock>
+                              <StyledText>
+                                {donor.donorData && donor.donorData.contactNo}
+                              </StyledText>
+                            </ListItemBlock>
+                            <ListItemBlock>
+                              <StyledText>
+                                {donor.donorData &&
+                                  subtractDistance(
+                                    donor.donorData.latitude,
+                                    donor.donorData.longitude
+                                  )}{' '}
+                                km
+                              </StyledText>
+                            </ListItemBlock>
+                            <ListItemBlock>
+                              <StyledText>
+                                {donor.donorData && (
+                                  <Moment fromNow>
+                                    {donor.donorData &&
+                                      donor.donorData.timestamp.toDate()}
+                                  </Moment>
+                                )}
+                              </StyledText>
+                            </ListItemBlock>
+                          </Link>
+                        </ListItem>
+                      </NavText>
+                      <Line />
+                    </div>
+                  );
+                })}
+          </CardContainer>
+        </InnerContainer>
+      </StyledContainer>
+    </>
   );
 };
 

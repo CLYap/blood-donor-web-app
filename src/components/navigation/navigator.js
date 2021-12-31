@@ -27,7 +27,7 @@ const Navigator = () => {
               <Route path='/create-account/donor' element={<CreateDonor />} />
               <Route path='/create-account/staff' element={<CreateStaff />} />
               <Route path='/donor-location' element={<DonorLocation />} />
-              <Route path='/live-chat/:donorId' element={<LiveChat />} />
+              <Route path='/live-chat/:donorInfo' element={<LiveChat />} />
             </>
           )}
           <Route path='/donor' element={<SearchDonor />} />

@@ -25,13 +25,16 @@ import SideBar from '../components/navigation/side-bar';
 import Moment from 'react-moment';
 
 const LiveChat = () => {
-  const [text, setText] = useState('');
-  const { staffInfo } = useUserInfo();
-  const [messages, setMessages] = useState([]);
+  const { donorInfo } = useParams();
+  const donorId = String(donorInfo).split('_')[0];
+  const donorName = String(donorInfo).split('_')[1];
 
+  const { staffInfo } = useUserInfo();
   const staffId = staffInfo.staffId;
-  const staffName = staffInfo.fName + staffInfo.lName;
-  const { donorId } = useParams();
+  const staffName = staffInfo.fName + ' ' + staffInfo.lName;
+
+  const [text, setText] = useState('');
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const docId = staffId + donorId;
@@ -50,7 +53,21 @@ const LiveChat = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const docId = staffId + donorId;
+    //create chat document reference with staff & donor information
+
+    db.collection('messages')
+      .doc(docId + '_users')
+      .set({
+        creatorId: staffId,
+        creatorName: staffName,
+        receiverId: donorId,
+        receiverName: donorName,
+        lastUpdate: Timestamp.fromDate(new Date()),
+      });
+
+    //create chat collection and store message
     await addDoc(collection(db, 'messages', docId, 'chat'), {
       _id: uuidv4(),
       createdAt: Timestamp.fromDate(new Date()),

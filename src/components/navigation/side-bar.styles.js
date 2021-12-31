@@ -74,6 +74,13 @@ export const NavText = styled.li`
       width: 100%;
       padding: 0;
     `}
+
+    ${(props) =>
+      props.isList &&
+      `
+      width: 25rem;
+      padding: 0;
+    `}
   }
 
   a:hover {
