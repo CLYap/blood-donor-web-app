@@ -15,18 +15,20 @@ import {
 } from '../components/global-styles';
 import FormikControl from '../components/form/formik-control';
 import SideBar from '../components/navigation/side-bar';
-
-const nurseInfo = {
-  //from redux
-  staffName: 'Siti Noraidah',
-  centreId: '1',
-  centreName: 'Pantai Hospital',
-};
+import { useUserInfo } from '../components/context/user-info-provider';
+import {
+  createAppUser,
+  assignRoleToUser,
+  createStaffProfile,
+} from '../components/services/account-service';
+import { genderOptions, roleOptions } from '../components/utils';
 
 const CreateStaff = () => {
+  let { staffInfo } = useUserInfo();
+
   const initialValues = {
-    centreId: nurseInfo.centreId,
-    centreName: nurseInfo.centreName,
+    centreId: staffInfo.bloodCentre.bloodCentreId,
+    centreName: staffInfo.bloodCentre.bloodCentreName,
     companyEmail: '',
     lName: '',
     fName: '',
@@ -35,19 +37,8 @@ const CreateStaff = () => {
     contactNo: '',
     personalEmail: '',
     role: '',
+    address: '',
   };
-
-  const genderOptions = [
-    { key: 'Select an option', value: '' },
-    { key: 'Female', value: 'F' },
-    { key: 'Male', value: 'M' },
-  ];
-
-  const roleOptions = [
-    { key: 'Select an option', value: '' },
-    { key: 'Nurse', value: 'ROLE_NURSE' }, //1
-    { key: 'Admin', value: 'ROLE_ADMIN' }, //2
-  ];
 
   const validationSchema = Yup.object({
     companyEmail: Yup.string()
@@ -68,10 +59,20 @@ const CreateStaff = () => {
       .email('Invalid email format')
       .required('Required!'),
     role: Yup.string().required('Required!'),
+    address: Yup.string().required('Required!'),
   });
 
   const onSubmit = (values) => {
     console.log(values);
+    //user contactNo is the temporary password created for staffs
+    createAppUser(values.companyEmail, values.contactNo).then(
+      setTimeout(() => {
+        // set timer to wait for backend to update the app_user_t table which is related to this API
+        assignRoleToUser(values.companyEmail, values.role).then(
+          createStaffProfile(values)
+        );
+      }, 1000)
+    );
   };
 
   return (
@@ -174,6 +175,13 @@ const CreateStaff = () => {
                         label='Personal Email'
                         name='personalEmail'
                         error={errors.personalEmail && touched.personalEmail}
+                      />
+                      <FormikControl
+                        control='input'
+                        type='address'
+                        label='Home Address'
+                        name='address'
+                        error={errors.address && touched.address}
                       />
                     </CardContainer>
                   </FlexColumnContainer>

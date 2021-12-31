@@ -15,6 +15,12 @@ import {
 } from '../components/global-styles';
 import FormikControl from '../components/form/formik-control';
 import SideBar from '../components/navigation/side-bar';
+import {
+  createAppUser,
+  assignRoleToUser,
+  createDonorProfile,
+} from '../components/services/account-service';
+import { genderOptions, bloodGroupOptions } from '../components/utils';
 
 const CreateDonor = () => {
   const initialValues = {
@@ -26,23 +32,6 @@ const CreateDonor = () => {
     contactNo: '',
     email: '',
   };
-
-  const genderOptions = [
-    { key: 'Select an option', value: '' },
-    { key: 'Female', value: 'F' },
-    { key: 'Male', value: 'M' },
-  ];
-
-  const bloodGroupOptions = [
-    { key: 'A+', value: 'A+' },
-    { key: 'A-', value: 'A-' },
-    { key: 'B+', value: 'B+' },
-    { key: 'B-', value: 'B-' },
-    { key: 'O+', value: 'O+' },
-    { key: 'O-', value: 'O-' },
-    { key: 'AB+', value: 'AB+' },
-    { key: 'AB-', value: 'AB-' },
-  ];
 
   const validationSchema = Yup.object({
     lName: Yup.string().required('Required!'),
@@ -62,6 +51,15 @@ const CreateDonor = () => {
 
   const onSubmit = (values) => {
     console.log(values);
+    //user contactNo is the temporary password created for donors
+    createAppUser(values.icNo, values.contactNo).then(
+      setTimeout(() => {
+        // set timer to wait for backend to update the app_user_t table which is related to this API
+        assignRoleToUser(values.icNo, 'ROLE_DONOR').then(
+          createDonorProfile(values)
+        );
+      }, 1000)
+    );
   };
 
   return (
