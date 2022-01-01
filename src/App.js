@@ -1,6 +1,6 @@
 import { GlobalStyle } from './components/global-styles';
 import Navigator from './components/navigation/navigator';
-import { UserInfoProvider } from './components/context/user-info-provider';
+import UserInfoProvider from './components/context/user-info-provider';
 
 function App() {
   return (

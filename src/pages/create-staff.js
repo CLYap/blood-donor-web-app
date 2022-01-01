@@ -17,9 +17,9 @@ import FormikControl from '../components/form/formik-control';
 import SideBar from '../components/navigation/side-bar';
 import { useUserInfo } from '../components/context/user-info-provider';
 import {
-  createAppUser,
-  assignRoleToUser,
-  createStaffProfile,
+  createAppUserService,
+  assignRoleToUserService,
+  createStaffProfileService,
 } from '../components/services/account-service';
 import { genderOptions, roleOptions } from '../components/utils';
 
@@ -47,10 +47,11 @@ const CreateStaff = () => {
     lName: Yup.string().required('Required!'),
     fName: Yup.string().required('Required!'),
     gender: Yup.string().required('Required!'),
-    icNo: Yup.number()
-      .integer()
-      .typeError('Enter numeric characters only')
-      .required('Required!'),
+    icNo: Yup.string()
+      .required()
+      .matches(/^[0-9]+$/, 'Must be only digits')
+      .min(12, 'Must be exactly 12 digits')
+      .max(12, 'Must be exactly 12 digits'),
     contactNo: Yup.number()
       .integer()
       .typeError('Enter numeric characters only')
@@ -65,11 +66,11 @@ const CreateStaff = () => {
   const onSubmit = (values) => {
     console.log(values);
     //user contactNo is the temporary password created for staffs
-    createAppUser(values.companyEmail, values.contactNo).then(
+    createAppUserService(values.companyEmail, values.contactNo).then(
       setTimeout(() => {
         // set timer to wait for backend to update the app_user_t table which is related to this API
-        assignRoleToUser(values.companyEmail, values.role).then(
-          createStaffProfile(values)
+        assignRoleToUserService(values.companyEmail, values.role).then(
+          createStaffProfileService(values)
         );
       }, 1000)
     );
@@ -87,7 +88,7 @@ const CreateStaff = () => {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
-            {({ errors, touched }) => (
+            {({ errors, touched, resetForm }) => (
               <Form>
                 <FlexRowContainer>
                   <CardContainer>
@@ -187,7 +188,7 @@ const CreateStaff = () => {
                   </FlexColumnContainer>
                 </FlexRowContainer>
                 <FlexRowContainer justifyContentRight>
-                  <SecondaryButton marginRight30>
+                  <SecondaryButton marginRight30 onClick={() => resetForm()}>
                     <StyledText tertiaryText>Cancel</StyledText>
                   </SecondaryButton>
                   <StyledButton type='submit'>

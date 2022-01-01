@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table';
 import {
   StyledContainer,
@@ -10,201 +10,76 @@ import {
   StyledText,
   Line,
 } from '../components/global-styles';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import SideBar from '../components/navigation/side-bar';
+import { getDonationHistoriesService } from '../components/services/donation-service';
+import { useUserInfo } from '../components/context/user-info-provider';
 
 const { theme, lightTheme } = Colors;
 
-const HistoryLs = [
-  {
-    sessionID: '1',
-    donorUUID: '128499393333',
-    date: '28-09-2012',
-    time: '1400',
-    staffUUID: '983749393933',
-    staffName: 'Siti Norway',
-    centreId: 'C0001',
-    centreName: 'Gland Eagers',
-    bloodGroup: 'O+',
-    bP: '126/64',
-    heamoglobinCount: '800',
-    pulse: '70',
-    bloodUnit: '450',
-    covidAntibody: '-',
-  },
-  {
-    sessionID: '2',
-    donorUUID: '128499393333',
-    date: '28-09-2013',
-    time: '1430',
-    staffUUID: '983749393933',
-    staffName: 'Siti Norway 2',
-    centreId: 'C0002',
-    centreName: 'Gland Eagers2',
-    bloodGroup: 'O-',
-    bP: '126/65',
-    heamoglobinCount: '800',
-    pulse: '70',
-    bloodUnit: '330',
-    covidAntibody: '-',
-  },
-  {
-    sessionID: '3',
-    donorUUID: '128499393333',
-    date: '28-09-2013',
-    time: '1430',
-    staffUUID: '983749393933',
-    staffName: 'Siti Norway Psildm',
-    centreId: 'C0003',
-    centreName: 'Pantai Hospital',
-    bloodGroup: 'AB+',
-    bP: '128/64',
-    heamoglobinCount: '800',
-    pulse: '70',
-    bloodUnit: '350',
-    covidAntibody: '+',
-  },
-  {
-    sessionID: '4',
-    donorUUID: '128499393333',
-    date: '28-09-2013',
-    time: '1430',
-    staffUUID: '983749393933',
-    staffName: 'Siti Norway Psildm',
-    centreId: 'C0003',
-    centreName: 'Pantai Hospital',
-    bloodGroup: 'B+',
-    bP: '126/62',
-    heamoglobinCount: '800',
-    pulse: '70',
-    bloodUnit: '400',
-    covidAntibody: '-',
-  },
-  {
-    sessionID: '5',
-    donorUUID: '128499393333',
-    date: '28-09-2013',
-    time: '1430',
-    staffUUID: '983749393933',
-    staffName: 'Siti Norway Psildm',
-    centreId: 'C0003',
-    centreName: 'Pantai Hospital',
-    bloodGroup: 'B-',
-    bP: '128/64',
-    heamoglobinCount: '800',
-    pulse: '70',
-    bloodUnit: '300',
-    covidAntibody: '-',
-  },
-  {
-    sessionID: '6',
-    date: '28-09-2013',
-    time: '1430',
-    staffUUID: '983749393933',
-    staffName: 'Siti Norway sw',
-    centreId: 'C0003',
-    centreName: 'Pantai Hospital',
-    bloodGroup: 'B+',
-    bP: '126/60',
-    heamoglobinCount: '800',
-    pulse: '70',
-    bloodUnit: '300',
-    covidAntibody: '+',
-  },
-  {
-    sessionID: '7',
-    date: '28-09-2013',
-    time: '1430',
-    staffUUID: '983749393933',
-    staffName: 'Siti Norway sw',
-    centreId: 'C0003',
-    centreName: 'Pantai Hospital',
-    bloodGroup: 'B+',
-    bP: '126/60',
-    heamoglobinCount: '800',
-    pulse: '70',
-    bloodUnit: '300',
-    covidAntibody: '+',
-  },
-  {
-    sessionID: '8',
-    date: '28-09-2013',
-    time: '1430',
-    staffUUID: '983749393933',
-    staffName: 'Siti Norway sw',
-    centreId: 'C0003',
-    centreName: 'Pantai Hospital',
-    bloodGroup: 'B+',
-    bP: '126/60',
-    heamoglobinCount: '800',
-    pulse: '70',
-    bloodUnit: '300',
-    covidAntibody: '+',
-  },
-  {
-    sessionID: '9',
-    date: '28-09-2013',
-    time: '1430',
-    staffUUID: '983749393933',
-    staffName: 'Siti Norway sw',
-    centreId: 'C0003',
-    centreName: 'Pantai Hospital',
-    bloodGroup: 'B+',
-    bP: '126/60',
-    heamoglobinCount: '800',
-    pulse: '70',
-    bloodUnit: '300',
-    covidAntibody: '+',
-  },
-  {
-    sessionID: '10',
-    date: '28-09-2013',
-    time: '1430',
-    staffUUID: '983749393933',
-    staffName: 'Siti Norway sw',
-    centreId: 'C0003',
-    centreName: 'Pantai Hospital',
-    bloodGroup: 'B+',
-    bP: '126/60',
-    heamoglobinCount: '800',
-    pulse: '70',
-    bloodUnit: '300',
-    covidAntibody: '+',
-  },
-  {
-    sessionID: '11',
-    date: '28-09-2013',
-    time: '1430',
-    staffUUID: '983749393933',
-    staffName: 'Siti Norway sw',
-    centreId: 'C0003',
-    centreName: 'Pantai Hospital',
-    bloodGroup: 'B+',
-    bP: '126/60',
-    heamoglobinCount: '800',
-    pulse: '70',
-    bloodUnit: '300',
-    covidAntibody: '+',
-  },
-];
-
 const DonationHistory = () => {
   const navigate = useNavigate();
-  const routeChange = () => {
-    navigate('/donor/donation/update');
+  let { role } = useUserInfo();
+
+  const { donorInfo } = useParams();
+  const donorId = String(donorInfo).split('_')[0];
+  const donorName = String(donorInfo).split('_')[1];
+  const [historyLs, setHistoryLs] = useState([]);
+
+  useEffect(() => {
+    getDonationHistoriesService(donorId).then((data) => {
+      console.log(data.data);
+      const history = data.data;
+      parseData(history);
+    });
+    return () => setHistoryLs([]);
+  }, [donorId]);
+
+  const parseData = (history) => {
+    const ls = [];
+    history.forEach((e) => {
+      const item = {
+        donationHistoryId: '',
+        date: '',
+        time: '',
+        bloodCentreName: '',
+        staffId: '',
+        bloodUnit: '',
+        bP: '',
+        haemoglobinCount: '',
+        pulse: '',
+        covidAntibody: '',
+      };
+      item.donationHistoryId = e.donationHistoryId;
+      item.date = e.date;
+      item.time = e.time;
+      item.bloodCentreName = e.staff.bloodCentre.bloodCentreName;
+      item.staffId = e.staff.staffId;
+      item.bloodUnit = e.bloodUnit;
+      item.bP = e.bP;
+      item.haemoglobinCount = e.haemoglobinCount;
+      item.pulse = e.pulse;
+      item.covidAntibody = e.covidAntibody;
+      ls.push(item);
+    });
+    setHistoryLs(ls);
+  };
+
+  const goUpdateDonation = () => {
+    navigate('/donor/' + donorInfo + '/donation-history/update');
   };
 
   const columns = [
-    { title: 'Session ID', field: 'sessionID' },
+    { title: 'Session ID', field: 'donationHistoryId' },
     { title: 'Date', field: 'date', searchable: false },
     { title: 'Time', field: 'time', searchable: false },
-    { title: 'Blood Centre', field: 'centreName' },
-    { title: 'Nurse ID', field: 'staffUUID', searchable: false },
+    { title: 'Blood Centre', field: 'bloodCentreName' },
+    { title: 'Nurse ID', field: 'staffId', searchable: false },
     { title: 'Blood Unit', field: 'bloodUnit', searchable: false },
     { title: 'Blood Pressure', field: 'bP', searchable: false },
     {
       title: 'Heamoglobin Count',
-      field: 'heamoglobinCount',
+      field: 'haemoglobinCount',
       searchable: false,
     },
     { title: 'Pulse', field: 'pulse', searchable: false },
@@ -222,19 +97,25 @@ const DonationHistory = () => {
       <StyledContainer secondaryBackground>
         <InnerContainer>
           <FlexRowContainer justifyContentSpaceBetween>
-            <StyledTitle pageTitle>Donor Details</StyledTitle>
-            <StyledButton onClick={routeChange}>
-              <FlexRowContainer>
-                <StyledText primaryText buttonText>
-                  Add Donation History
-                </StyledText>
-              </FlexRowContainer>
-            </StyledButton>
+            <StyledTitle pageTitle>Donor History</StyledTitle>
+            {role && role.includes('ROLE_NURSE') && (
+              <StyledButton onClick={goUpdateDonation}>
+                <FlexRowContainer>
+                  <StyledText primaryText buttonText>
+                    Add Donation History
+                  </StyledText>
+                </FlexRowContainer>
+              </StyledButton>
+            )}
           </FlexRowContainer>
+          <StyledText>Donor ID: {donorId}</StyledText>
+          <StyledText paddingBottom15>
+            Donor Name: {String(donorName).replace('-', ' ')}
+          </StyledText>
           <Line />
           <MaterialTable
             title=''
-            data={HistoryLs}
+            data={historyLs}
             columns={columns}
             options={{
               headerStyle: {
@@ -243,7 +124,6 @@ const DonationHistory = () => {
                 fontSize: 17,
                 padding: 5,
               },
-              padding: 5,
               margin: 0,
               pageSize: 10,
               pageSizeOptions: [10],

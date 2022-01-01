@@ -8,7 +8,7 @@ import jwt_decode from 'jwt-decode';
 
 const UserInfoContext = createContext();
 
-export const UserInfoProvider = ({ children }) => {
+const UserInfoProvider = ({ children }) => {
   const navigate = useNavigate();
 
   let [authTokens, setAuthTokens] = useState(() =>
@@ -81,4 +81,4 @@ export const UserInfoProvider = ({ children }) => {
 
 export const useUserInfo = () => useContext(UserInfoContext);
 
-export default UserInfoContext;
+export default UserInfoProvider;

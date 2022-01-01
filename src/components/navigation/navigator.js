@@ -31,9 +31,17 @@ const Navigator = () => {
             </>
           )}
           <Route path='/donor' element={<SearchDonor />} />
-          <Route path='/donor/:donorId' element={<DonorDetails />} />
-          <Route path='/donor/donation' element={<DonationHistory />} />
-          <Route path='/donor/donation/update' element={<UpdateDonation />} />
+          <Route path='/donor/:donorInfo' element={<DonorDetails />} />
+          <Route
+            path='/donor/:donorInfo/donation-history'
+            element={<DonationHistory />}
+          />
+          {role && role.includes('ROLE_NURSE') && (
+            <Route
+              path='/donor/:donorInfo/donation-history/update'
+              element={<UpdateDonation />}
+            />
+          )}
           <Route path='/appointment' element={<Appointment />} />
         </>
       )}

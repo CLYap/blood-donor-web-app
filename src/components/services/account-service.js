@@ -1,20 +1,20 @@
 import API from './api';
 
-export const createAppUser = (username, tempPassword) => {
+export const createAppUserService = (username, tempPassword) => {
   return API.post('/create/user/account', {
     username: username,
     password: tempPassword,
   }).then((response) => (response.status === 200 ? response : null));
 };
 
-export const assignRoleToUser = (username, role) => {
+export const assignRoleToUserService = (username, role) => {
   return API.post('/role/addtouser', {
     username: username,
     roleName: role,
   }).then((response) => (response.status === 200 ? response : null));
 };
 
-export const createStaffProfile = (values) => {
+export const createStaffProfileService = (values) => {
   return API.post(
     '/create/user/staff/' + values.centreId + '/' + values.companyEmail,
     {
@@ -29,7 +29,7 @@ export const createStaffProfile = (values) => {
   ).then((response) => (response.status === 200 ? response : null));
 };
 
-export const createDonorProfile = (values) => {
+export const createDonorProfileService = (values) => {
   return API.post('/create/user/donor/' + values.icNo, {
     lName: values.lName,
     fName: values.fName,

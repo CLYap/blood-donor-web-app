@@ -21,7 +21,7 @@ import {
 } from '../components/form/form.styles';
 import SideBar from '../components/navigation/side-bar';
 import { parseDateTime } from '../components/utils';
-import { createDonationRecord } from '../components/services/donation-service';
+import { createDonationRecordService } from '../components/services/donation-service';
 
 const UpdateDonation = () => {
   const initialValues = {
@@ -62,7 +62,7 @@ const UpdateDonation = () => {
   const onSubmit = (values) => {
     values.time = parseDateTime(values.date, values.time);
     console.log(values);
-    createDonationRecord('S0001', 'D0001', values).then(() => {
+    createDonationRecordService('S0001', 'D0001', values).then(() => {
       console.log('success');
     });
   };

@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyledChatForm } from './form.styles';
-import { useUserInfo } from '../context/user-info-provider';
 import {
   TextBar,
   StyledButton,

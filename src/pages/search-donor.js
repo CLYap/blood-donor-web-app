@@ -1,142 +1,83 @@
 import React from 'react';
-import MaterialTable from 'material-table';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 import {
   StyledContainer,
   InnerContainer,
   StyledTitle,
-  Colors,
-  Line,
   StyledButton,
   StyledText,
+  CardContainer,
+  FlexRowContainer,
+  SecondaryButton,
 } from '../components/global-styles';
 import SideBar from '../components/navigation/side-bar';
+import FormikControl from '../components/form/formik-control';
 import { useNavigate } from 'react-router-dom';
-
-const { theme, lightTheme } = Colors;
-
-const donorLs = [
-  {
-    icNo: '991203136202',
-    fName: 'Cheel',
-    lName: 'Yap',
-    bloodType: 'O+',
-    distance: '5km',
-    lastUpdated: '30 minutes ago',
-  },
-  {
-    icNo: '891203136202',
-    fName: 'Cheel',
-    lName: 'Yap',
-    bloodType: 'O+',
-    distance: '5km',
-    lastUpdated: '10 minutes ago',
-  },
-  {
-    icNo: '951203136203',
-    fName: 'Cheel',
-    lName: 'Yap',
-    bloodType: 'AB+',
-    distance: '5km',
-    lastUpdated: '15 minutes ago',
-  },
-  {
-    icNo: '671203056202',
-    fName: 'Cheel',
-    lName: 'Yap',
-    bloodType: 'A-',
-    distance: '5km',
-    lastUpdated: '1 hour ago',
-  },
-  {
-    icNo: '921103106202',
-    fName: 'Cheel',
-    lName: 'Yap',
-    bloodType: 'B+',
-    distance: '5km',
-    lastUpdated: '2 hours ago',
-  },
-  {
-    icNo: '691203126208',
-    fName: 'Cheel',
-    lName: 'Yap',
-    bloodType: 'O-',
-    distance: '5km',
-    lastUpdated: '15 hours ago',
-  },
-];
+import { getDonorService } from '../components/services/donation-service';
 
 const SearchDonor = () => {
   const navigate = useNavigate();
-  const columns = [
-    { title: 'IC No.', field: 'icNo', searchable: true, sorting: false },
-    { title: 'First Name', field: 'fName', searchable: false, sorting: false },
-    { title: 'Last Name', field: 'lName', searchable: false, sorting: false },
-    {
-      title: 'Blood Group',
-      field: 'bloodType',
-      searchable: true,
-      sorting: true,
-    },
-    { title: 'Within', field: 'distance', searchable: false, sorting: true },
-    {
-      title: 'Last Updated',
-      field: 'lastUpdated',
-      searchable: false,
-      sorting: true,
-    },
-  ];
 
-  const goToDetailPage = () => {
-    navigate('/donor/D0001');
+  const initialValues = { icNo: '' };
+  const validationSchema = Yup.object({
+    icNo: Yup.string()
+      .required()
+      .matches(/^[0-9]+$/, 'Must be only digits')
+      .min(12, 'Must be exactly 12 digits')
+      .max(12, 'Must be exactly 12 digits'),
+  });
+
+  const onSubmit = (values) => {
+    getDonorService(values.icNo).then((data) => {
+      if (data !== undefined && data !== null) {
+        const donorInfo = data.data;
+        navigate(
+          '/donor/' +
+            donorInfo.donorId +
+            '_' +
+            donorInfo.fName +
+            '-' +
+            donorInfo.lName,
+          { state: donorInfo }
+        );
+      }
+    });
   };
-
   return (
     <>
       <SideBar />
       <StyledContainer secondaryBackground>
         <InnerContainer>
-          <StyledButton onClick={goToDetailPage}>
-            <StyledText>pass params to detail page</StyledText>
-          </StyledButton>
           <StyledTitle pageTitle>Search Donor</StyledTitle>
-          <Line />
-          <MaterialTable
-            title=''
-            data={donorLs}
-            columns={columns}
-            options={{
-              headerStyle: {
-                backgroundColor: lightTheme,
-                color: theme,
-                fontSize: 23,
-              },
-              margin: 10,
-              pageSizeOptions: [5],
-              searchFieldStyle: {
-                height: '40px',
-                fontSize: 15,
-                marginBottom: 20,
-                width: '300px',
-              },
-            }}
-            style={{
-              minWidth: '50rem',
-              padding: 50,
-              marginTop: 40,
-              zIndex: 1,
-              fontSize: 15,
-            }}
-            localization={{
-              toolbar: { searchPlaceholder: 'Search by IC No. / Blood Group' },
-            }}
-            actions={[
-              {
-                icon: 'edit',
-                tooltip: 'Edit ',
-                onClick: () => goToDetailPage(),
-              },
-            ]}
-          ></MaterialTable>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            {({ errors, touched, resetForm }) => (
+              <Form>
+                <CardContainer>
+                  <FormikControl
+                    control='input'
+                    type='icNo'
+                    label='Donor IC No'
+                    name='icNo'
+                    placeholder='Search By IC No.'
+                    error={errors.icNo && touched.icNo}
+                  />
+                  <FlexRowContainer justifyContentRight>
+                    <SecondaryButton marginRight30 onClick={() => resetForm()}>
+                      <StyledText tertiaryText>Cancel</StyledText>
+                    </SecondaryButton>
+                    <StyledButton type='submit'>
+                      <StyledText primaryText>Search</StyledText>
+                    </StyledButton>
+                  </FlexRowContainer>
+                </CardContainer>
+              </Form>
+            )}
+          </Formik>
         </InnerContainer>
       </StyledContainer>
     </>

@@ -16,9 +16,9 @@ import {
 import FormikControl from '../components/form/formik-control';
 import SideBar from '../components/navigation/side-bar';
 import {
-  createAppUser,
-  assignRoleToUser,
-  createDonorProfile,
+  createAppUserService,
+  assignRoleToUserService,
+  createDonorProfileService,
 } from '../components/services/account-service';
 import { genderOptions, bloodGroupOptions } from '../components/utils';
 
@@ -37,10 +37,11 @@ const CreateDonor = () => {
     lName: Yup.string().required('Required!'),
     fName: Yup.string().required('Required!'),
     gender: Yup.string().required('Required!'),
-    icNo: Yup.number()
-      .integer()
-      .typeError('Enter numeric characters only')
-      .required('Required!'),
+    icNo: Yup.string()
+      .required()
+      .matches(/^[0-9]+$/, 'Must be only digits')
+      .min(12, 'Must be exactly 12 digits')
+      .max(12, 'Must be exactly 12 digits'),
     bloodType: Yup.string().required('Required!'),
     contactNo: Yup.number()
       .integer()
@@ -52,11 +53,11 @@ const CreateDonor = () => {
   const onSubmit = (values) => {
     console.log(values);
     //user contactNo is the temporary password created for donors
-    createAppUser(values.icNo, values.contactNo).then(
+    createAppUserService(values.icNo, values.contactNo).then(
       setTimeout(() => {
         // set timer to wait for backend to update the app_user_t table which is related to this API
-        assignRoleToUser(values.icNo, 'ROLE_DONOR').then(
-          createDonorProfile(values)
+        assignRoleToUserService(values.icNo, 'ROLE_DONOR').then(
+          createDonorProfileService(values)
         );
       }, 1000)
     );
@@ -74,7 +75,7 @@ const CreateDonor = () => {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
-            {({ errors, touched }) => (
+            {({ errors, touched, resetForm }) => (
               <Form>
                 <FlexRowContainer>
                   <CardContainer>
@@ -142,7 +143,7 @@ const CreateDonor = () => {
                   </FlexColumnContainer>
                 </FlexRowContainer>
                 <FlexRowContainer justifyContentRight>
-                  <SecondaryButton marginRight30>
+                  <SecondaryButton marginRight30 onClick={() => resetForm()}>
                     <StyledText tertiaryText>Cancel</StyledText>
                   </SecondaryButton>
                   <StyledButton type='submit'>

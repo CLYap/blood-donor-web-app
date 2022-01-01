@@ -161,6 +161,12 @@ export const StyledText = styled.p`
     `
     padding-top: 15px;
   `}
+
+  ${(props) =>
+    props.paddingBottom15 &&
+    `
+    padding-bottom: 15px;
+  `}
 `;
 
 export const StyledButton = styled.button`
