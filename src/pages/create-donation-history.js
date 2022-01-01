@@ -25,7 +25,7 @@ import { createDonationRecordService } from '../components/services/donation-ser
 import { useLocation } from 'react-router-dom';
 import { useUserInfo } from '../components/context/user-info-provider';
 
-const UpdateDonation = () => {
+const CreateDonationHistory = () => {
   let { staffInfo } = useUserInfo();
   const bloodCentreId = staffInfo && staffInfo.bloodCentre.bloodCentreId;
   const bloodCentreName = staffInfo && staffInfo.bloodCentre.bloodCentreName;
@@ -225,4 +225,4 @@ const UpdateDonation = () => {
   );
 };
 
-export default UpdateDonation;
+export default CreateDonationHistory;

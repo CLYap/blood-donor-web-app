@@ -15,59 +15,39 @@ import {
 import FormikControl from '../components/form/formik-control';
 import moment from 'moment';
 import SideBar from '../components/navigation/side-bar';
+import { useUserInfo } from '../components/context/user-info-provider';
+import { CreateAppointmentSlotService } from '../components/services/appointment-service';
+import { parseDateTime } from '../components/utils';
 
-const Appointment = () => {
-  const [slots, setSlots] = useState([]);
-
-  const createSlots = () => {
-    let startTime = moment('06:00', 'HH:mm');
-    let endTime = moment('22:00', 'HH:mm');
-    if (endTime.isBefore(startTime)) {
-      endTime.add(1, 'day');
-    }
-    let arr = [];
-    while (startTime <= endTime) {
-      arr.push(
-        new moment(startTime).format('HH:mm') +
-          ' - ' +
-          new moment(startTime.add(30, 'minutes')).format('HH:mm')
-      );
-    }
-    let options = arr.map((option) => {
-      return { key: option, value: option };
-    });
-    setSlots(options);
-  };
-
-  useEffect(() => {
-    createSlots();
-  }, []);
-
-  const center = {
-    centreId: '1',
-    centreName: 'Pantai Hospital',
-  };
+const CreateAppointmentSlot = () => {
+  let { staffInfo } = useUserInfo();
+  const bloodCentreId = staffInfo && staffInfo.bloodCentre.bloodCentreId;
 
   const initialValues = {
-    centreId: center.centreId,
-    centreName: center.centreName,
     date: '',
-    availableSlot: 5,
-    timeSlots: [],
+    startTime: '',
+    endTime: '',
+    slot: 1,
   };
 
   const validationSchema = Yup.object({
     date: Yup.string().required('Required!'),
-    availableSlot: Yup.number()
+    startTime: Yup.string().required('Required!'),
+    endTime: Yup.string().required('Required!'),
+    slot: Yup.number()
       .integer()
       .typeError('Enter numeric characters only')
       .min(1, 'Slot cannot be less than 1')
       .required('Required!'),
-    timeSlots: Yup.array().required('Required!'),
   });
 
-  const onSubmit = (values) => {
+  const onSubmit = (values, { resetForm }) => {
     console.log(values);
+    values.startTime = parseDateTime(values.date, values.startTime);
+    values.endTime = parseDateTime(values.date, values.endTime);
+    CreateAppointmentSlotService(bloodCentreId, values)
+      .then(resetForm())
+      .catch((e) => console.log(e.message));
   };
 
   return (
@@ -80,7 +60,7 @@ const Appointment = () => {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
-            {({ errors, touched }) => (
+            {({ errors, touched, resetForm }) => (
               <Form>
                 <CardContainer>
                   <StyledTitle subtitle>Create Appointment Slot</StyledTitle>
@@ -95,21 +75,29 @@ const Appointment = () => {
                   />
                   <FormikControl
                     control='input'
-                    type='availableSlot'
-                    label='Number of Available Slots per session'
-                    name='availableSlot'
-                    error={errors.availableSlot && touched.availableSlot}
+                    type='time'
+                    label='Start Time'
+                    name='startTime'
+                    error={errors.startTime && touched.startTime}
                   />
                   <FormikControl
-                    control='checkbox'
-                    label='Time Slots'
-                    name='timeSlots'
-                    options={slots}
-                    error={errors.timeSlots && touched.timeSlots}
+                    control='input'
+                    type='time'
+                    label='End Time'
+                    name='endTime'
+                    error={errors.endTime && touched.endTime}
+                  />
+
+                  <FormikControl
+                    control='input'
+                    type='text'
+                    label='Number of Available Slots per session'
+                    name='slot'
+                    error={errors.slot && touched.slot}
                   />
                 </CardContainer>
                 <FlexRowContainer justifyContentRight>
-                  <SecondaryButton marginRight30>
+                  <SecondaryButton marginRight30 onClick={() => resetForm()}>
                     <StyledText tertiaryText>Cancel</StyledText>
                   </SecondaryButton>
                   <StyledButton type='submit'>
@@ -125,4 +113,4 @@ const Appointment = () => {
   );
 };
 
-export default Appointment;
+export default CreateAppointmentSlot;

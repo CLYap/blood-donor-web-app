@@ -51,8 +51,18 @@ const SideBarData = [
   },
   {
     title: 'Appointment',
-    path: '/appointment',
+    path: '',
     icon: <BsCalendarDayFill />,
+    subnav: [
+      {
+        title: 'Create Appointment Slot',
+        path: '/create-appointment',
+      },
+      {
+        title: 'View Appointment',
+        path: '/appointment-schedule',
+      },
+    ],
   },
 ];
 

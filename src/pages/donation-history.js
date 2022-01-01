@@ -125,8 +125,8 @@ const DonationHistory = () => {
                 padding: 5,
               },
               margin: 0,
-              pageSize: 10,
-              pageSizeOptions: [10],
+              pageSize: 5,
+              pageSizeOptions: [5],
               search: false,
             }}
             style={{
