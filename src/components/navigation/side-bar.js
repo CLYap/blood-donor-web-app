@@ -18,7 +18,7 @@ import { useUserInfo } from '../context/user-info-provider';
 
 const { tertiary } = Colors;
 
-const SideBarData = [
+const AdminSideBarData = [
   {
     title: 'Home',
     path: '/home',
@@ -66,12 +66,30 @@ const SideBarData = [
   },
 ];
 
+const NurseSideBarData = [
+  {
+    title: 'Home',
+    path: '/home',
+    icon: <AiFillHome />,
+  },
+  {
+    title: 'Donor Details',
+    path: '/donor',
+    icon: <MdBloodtype />,
+  },
+  {
+    title: 'View Appointment',
+    path: '/appointment-schedule',
+    icon: <BsCalendarDayFill />,
+  },
+];
+
 const SideBar = () => {
   const [sidebar, setSideBar] = useState(false);
   const showSideBar = () => {
     setSideBar(!sidebar);
   };
-  let { logoutUser } = useUserInfo();
+  let { logoutUser, role } = useUserInfo();
 
   return (
     <>
@@ -93,15 +111,28 @@ const SideBar = () => {
                 <AiOutlineClose onClick={showSideBar} />
               </MenuBar>
             </NavBarToggle>
-            {SideBarData.map((item, index) => {
-              return (
-                <SideBarSubmenu
-                  showSideBar={showSideBar}
-                  item={item}
-                  key={index}
-                />
-              );
-            })}
+            {role &&
+              role.includes('ROLE_NURSE') &&
+              NurseSideBarData.map((item, index) => {
+                return (
+                  <SideBarSubmenu
+                    showSideBar={showSideBar}
+                    item={item}
+                    key={index}
+                  />
+                );
+              })}
+            {role &&
+              role.includes('ROLE_ADMIN') &&
+              AdminSideBarData.map((item, index) => {
+                return (
+                  <SideBarSubmenu
+                    showSideBar={showSideBar}
+                    item={item}
+                    key={index}
+                  />
+                );
+              })}
           </NavMenuItem>
         </NavMenu>
       </IconContext.Provider>

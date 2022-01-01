@@ -11,6 +11,7 @@ import CreateDonationHistory from '../../pages/create-donation-history';
 import DonorDetails from '../../pages/donor-details';
 import LiveChat from '../../pages/live-chat';
 import DonorLocation from '../../pages/donor-location';
+import AppointmentSchedule from '../../pages/appointment-schedule';
 import { useUserInfo } from '../../components/context/user-info-provider';
 
 const Navigator = () => {
@@ -48,6 +49,10 @@ const Navigator = () => {
               element={<CreateAppointmentSlot />}
             />
           )}
+          <Route
+            path='/appointment-schedule'
+            element={<AppointmentSchedule />}
+          />
         </>
       )}
       <Route

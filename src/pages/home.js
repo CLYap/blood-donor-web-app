@@ -18,7 +18,7 @@ import { useUserInfo } from '../components/context/user-info-provider';
 import { db } from '../components/services/firebase-config';
 
 const Home = (logout) => {
-  let { staffInfo } = useUserInfo();
+  let { staffInfo, role } = useUserInfo();
   const [chatrooms, setChatRooms] = useState([]);
 
   useEffect(() => {
@@ -54,7 +54,9 @@ const Home = (logout) => {
           <Line />
           <FlexRowContainer>
             <CardContainer></CardContainer>
-            <ChatRoom chatrooms={chatrooms}></ChatRoom>
+            {role && role.includes('ROLE_ADMIN') && (
+              <ChatRoom chatrooms={chatrooms}></ChatRoom>
+            )}
           </FlexRowContainer>
         </InnerContainer>
       </StyledContainer>

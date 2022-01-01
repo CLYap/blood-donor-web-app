@@ -14,10 +14,12 @@ import {
 } from '../components/global-styles';
 import { FiExternalLink } from 'react-icons/fi';
 import { useNavigate, useParams, useLocation } from 'react-router';
+import { useUserInfo } from '../components/context/user-info-provider';
 
 const { primary } = Colors;
 
 const DonorDetails = () => {
+  let { role } = useUserInfo();
   const navigate = useNavigate();
   const { state } = useLocation();
   const { donorInfo } = useParams();
@@ -44,14 +46,16 @@ const DonorDetails = () => {
                   </StyledText>
                 </FlexRowContainer>
               </StyledButton>
-              <StyledButton onClick={goToLiveChat}>
-                <FlexRowContainer>
-                  <FiExternalLink color={primary} size={25} />
-                  <StyledText primaryText buttonText>
-                    Send Blood Request
-                  </StyledText>
-                </FlexRowContainer>
-              </StyledButton>
+              {role && role.includes('ROLE_ADMIN') && (
+                <StyledButton onClick={goToLiveChat}>
+                  <FlexRowContainer>
+                    <FiExternalLink color={primary} size={25} />
+                    <StyledText primaryText buttonText>
+                      Send Blood Request
+                    </StyledText>
+                  </FlexRowContainer>
+                </StyledButton>
+              )}
             </div>
           </FlexRowContainer>
           <Line />
