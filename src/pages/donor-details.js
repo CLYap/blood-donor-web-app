@@ -22,7 +22,7 @@ const DonorDetails = () => {
   const { state } = useLocation();
   const { donorInfo } = useParams();
   const goToDonationHistory = () => {
-    navigate('/donor/' + donorInfo + '/donation-history');
+    navigate('/donor/' + donorInfo + '/donation-history', { state });
   };
   const goToLiveChat = () => {
     navigate('/live-chat/' + donorInfo);

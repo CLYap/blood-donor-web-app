@@ -10,7 +10,7 @@ import {
   StyledText,
   Line,
 } from '../components/global-styles';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import SideBar from '../components/navigation/side-bar';
 import { getDonationHistoriesService } from '../components/services/donation-service';
 import { useUserInfo } from '../components/context/user-info-provider';
@@ -20,15 +20,15 @@ const { theme, lightTheme } = Colors;
 const DonationHistory = () => {
   const navigate = useNavigate();
   let { role } = useUserInfo();
+  const { state } = useLocation();
+  const donorId = state && state.donorId;
+  const donorName = state && state.fName + ' ' + state.lName;
 
   const { donorInfo } = useParams();
-  const donorId = String(donorInfo).split('_')[0];
-  const donorName = String(donorInfo).split('_')[1];
   const [historyLs, setHistoryLs] = useState([]);
 
   useEffect(() => {
     getDonationHistoriesService(donorId).then((data) => {
-      console.log(data.data);
       const history = data.data;
       parseData(history);
     });
@@ -66,7 +66,7 @@ const DonationHistory = () => {
   };
 
   const goUpdateDonation = () => {
-    navigate('/donor/' + donorInfo + '/donation-history/update');
+    navigate('/donor/' + donorInfo + '/donation-history/update', { state });
   };
 
   const columns = [

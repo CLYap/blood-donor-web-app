@@ -20,10 +20,23 @@ import {
   StyledLabel,
 } from '../components/form/form.styles';
 import SideBar from '../components/navigation/side-bar';
-import { parseDateTime } from '../components/utils';
+import { parseDateTime, covidAntibodyTestOptions } from '../components/utils';
 import { createDonationRecordService } from '../components/services/donation-service';
+import { useLocation } from 'react-router-dom';
+import { useUserInfo } from '../components/context/user-info-provider';
 
 const UpdateDonation = () => {
+  let { staffInfo } = useUserInfo();
+  const bloodCentreId = staffInfo && staffInfo.bloodCentre.bloodCentreId;
+  const bloodCentreName = staffInfo && staffInfo.bloodCentre.bloodCentreName;
+  const staffId = staffInfo && staffInfo.staffId;
+  const staffName = staffInfo && staffInfo.fName + ' ' + staffInfo.lName;
+
+  const { state } = useLocation();
+  const donorId = state && state.donorId;
+  const donorName = state && state.fName + ' ' + state.lName;
+  const bloodType = state && state.bloodType;
+
   const initialValues = {
     date: '',
     time: '',
@@ -33,12 +46,6 @@ const UpdateDonation = () => {
     pulse: '',
     covidAntibody: '',
   };
-
-  const testOptions = [
-    { key: 'Select an option', value: '' },
-    { key: 'Positive', value: '+' },
-    { key: 'Negative', value: '-' },
-  ];
 
   const validationSchema = Yup.object({
     date: Yup.string().required('Required!'),
@@ -59,12 +66,13 @@ const UpdateDonation = () => {
     covidAntibody: Yup.string().required('Required!'),
   });
 
-  const onSubmit = (values) => {
+  const onSubmit = (values, { resetForm }) => {
     values.time = parseDateTime(values.date, values.time);
     console.log(values);
-    createDonationRecordService('S0001', 'D0001', values).then(() => {
+    createDonationRecordService(staffId, donorId, values).then(() => {
       console.log('success');
     });
+    resetForm();
   };
 
   return (
@@ -77,7 +85,7 @@ const UpdateDonation = () => {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
-            {({ errors, touched }) => (
+            {({ errors, touched, resetForm }) => (
               <Form>
                 <FlexRowContainer>
                   <CardContainer>
@@ -103,14 +111,14 @@ const UpdateDonation = () => {
                       <InputFieldContainer>
                         <ReadOnlyField>
                           <StyledLabel>Donor ID</StyledLabel>
-                          <StyledText>D0001</StyledText>
+                          <StyledText>{donorId}</StyledText>
                         </ReadOnlyField>
                       </InputFieldContainer>
                       <FlexColumnContainer paddingLeft35>
                         <InputFieldContainer>
                           <ReadOnlyField>
                             <StyledLabel>Donor Name</StyledLabel>
-                            <StyledText>Yap Chee Ling</StyledText>
+                            <StyledText>{donorName}</StyledText>
                           </ReadOnlyField>
                         </InputFieldContainer>
                       </FlexColumnContainer>
@@ -119,14 +127,14 @@ const UpdateDonation = () => {
                       <InputFieldContainer>
                         <ReadOnlyField>
                           <StyledLabel>Blood Centre ID</StyledLabel>
-                          <StyledText>BC0001</StyledText>
+                          <StyledText>{bloodCentreId}</StyledText>
                         </ReadOnlyField>
                       </InputFieldContainer>
                       <FlexColumnContainer paddingLeft35>
                         <InputFieldContainer>
                           <ReadOnlyField>
                             <StyledLabel>Blood Centre Name</StyledLabel>
-                            <StyledText>Pantai Hospital</StyledText>
+                            <StyledText>{bloodCentreName}</StyledText>
                           </ReadOnlyField>
                         </InputFieldContainer>
                       </FlexColumnContainer>
@@ -135,14 +143,14 @@ const UpdateDonation = () => {
                       <InputFieldContainer>
                         <ReadOnlyField>
                           <StyledLabel>Nurse ID</StyledLabel>
-                          <StyledText>S0001</StyledText>
+                          <StyledText>{staffId}</StyledText>
                         </ReadOnlyField>
                       </InputFieldContainer>
                       <FlexColumnContainer paddingLeft35>
                         <InputFieldContainer>
                           <ReadOnlyField>
                             <StyledLabel>Nurse Name</StyledLabel>
-                            <StyledText>Siti Noraidah</StyledText>
+                            <StyledText>{staffName}</StyledText>
                           </ReadOnlyField>
                         </InputFieldContainer>
                       </FlexColumnContainer>
@@ -154,7 +162,7 @@ const UpdateDonation = () => {
                         <InputFieldContainer>
                           <ReadOnlyField>
                             <StyledLabel>Blood Type</StyledLabel>
-                            <StyledText>O+</StyledText>
+                            <StyledText>{bloodType}</StyledText>
                           </ReadOnlyField>
                         </InputFieldContainer>
                         <FlexColumnContainer paddingLeft35>
@@ -194,7 +202,7 @@ const UpdateDonation = () => {
                         control='select'
                         label='Covid-19 Antibody'
                         name='covidAntibody'
-                        options={testOptions}
+                        options={covidAntibodyTestOptions}
                         error={errors.covidAntibody && touched.covidAntibody}
                       />
                     </CardContainer>

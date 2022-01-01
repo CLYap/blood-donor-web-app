@@ -25,3 +25,9 @@ export const bloodGroupOptions = [
   { key: 'AB+', value: 'AB+' },
   { key: 'AB-', value: 'AB-' },
 ];
+
+export const covidAntibodyTestOptions = [
+  { key: 'Select an option', value: '' },
+  { key: 'Positive', value: '+' },
+  { key: 'Negative', value: '-' },
+];
