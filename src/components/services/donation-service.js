@@ -17,3 +17,21 @@ export const getDonorService = (icNo) => {
     response.status === 200 ? response : null
   );
 };
+
+export const getDonationsOfStaffService = (bloodCentreId, year, month) => {
+  return API.get(
+    '/count/histories/' + bloodCentreId + '/' + year + '/' + month
+  ).then((response) => (response.status === 200 ? response : null));
+};
+
+export const getDonationsBloodTypeService = (bloodCentreId, year, month) => {
+  return API.get(
+    '/count/histories/bloodtypes/' + bloodCentreId + '/' + year + '/' + month
+  ).then((response) => (response.status === 200 ? response : null));
+};
+
+export const getDonationsBloodUnitService = (bloodCentreId, year, month) => {
+  return API.get(
+    '/count/histories/bloodunit/' + bloodCentreId + '/' + year + '/' + month
+  ).then((response) => (response.status === 200 ? response : null));
+};

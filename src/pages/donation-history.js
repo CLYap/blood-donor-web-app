@@ -71,18 +71,17 @@ const DonationHistory = () => {
 
   const columns = [
     { title: 'Session ID', field: 'donationHistoryId' },
-    { title: 'Date', field: 'date', searchable: false },
-    { title: 'Time', field: 'time', searchable: false },
+    { title: 'Date', field: 'date' },
+    { title: 'Time', field: 'time' },
     { title: 'Blood Centre', field: 'bloodCentreName' },
-    { title: 'Nurse ID', field: 'staffId', searchable: false },
-    { title: 'Blood Unit', field: 'bloodUnit', searchable: false },
-    { title: 'Blood Pressure', field: 'bP', searchable: false },
+    { title: 'Nurse ID', field: 'staffId' },
+    { title: 'Blood Unit', field: 'bloodUnit' },
+    { title: 'Blood Pressure', field: 'bP' },
     {
       title: 'Heamoglobin Count',
       field: 'haemoglobinCount',
-      searchable: false,
     },
-    { title: 'Pulse', field: 'pulse', searchable: false },
+    { title: 'Pulse', field: 'pulse' },
 
     {
       title: 'Covid-19 Antibody',

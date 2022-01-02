@@ -218,6 +218,14 @@ export const CardContainer = styled.div`
     height: 200px;
     overflow-x: hidden;
   `}
+  
+  ${(props) =>
+    props.homePage &&
+    `
+    width: 70rem;
+    overflow-x: hidden;
+    height: 750px;
+  `}
 `;
 
 export const Line = styled.div`
@@ -225,6 +233,12 @@ export const Line = styled.div`
   width: 100%;
   background-color: ${darkLight};
   margin-vertical: 10px;
+
+  ${(props) =>
+    props.marginTop100 &&
+    `
+    margin-top: 100px;
+  `}
 `;
 
 export const FlexRowContainer = styled.div`
