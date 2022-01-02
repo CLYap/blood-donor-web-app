@@ -38,6 +38,7 @@ const CreateStaff = () => {
     personalEmail: '',
     role: '',
     address: '',
+    dob: '',
   };
 
   const validationSchema = Yup.object({
@@ -61,10 +62,10 @@ const CreateStaff = () => {
       .required('Required!'),
     role: Yup.string().required('Required!'),
     address: Yup.string().required('Required!'),
+    dob: Yup.string().required('Required!'),
   });
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = (values, { resetForm }) => {
     //user contactNo is the temporary password created for staffs
     createAppUserService(values.companyEmail, values.contactNo).then(
       setTimeout(() => {
@@ -74,6 +75,7 @@ const CreateStaff = () => {
         );
       }, 1000)
     );
+    resetForm();
   };
 
   return (
@@ -94,27 +96,7 @@ const CreateStaff = () => {
                   <CardContainer>
                     <StyledTitle subtitle>Staff Details</StyledTitle>
                     <Line />
-                    <FormikControl
-                      control='input'
-                      type='centreId'
-                      label='Blood Centre ID'
-                      name='centreId'
-                      disabled={true}
-                    />
-                    <FormikControl
-                      control='input'
-                      type='centreName'
-                      label='Blood Centre'
-                      name='centreName'
-                      disabled={true}
-                    />
-                    <FormikControl
-                      control='input'
-                      type='companyEmail'
-                      label='Company Email'
-                      name='companyEmail'
-                      error={errors.companyEmail && touched.companyEmail}
-                    />
+
                     <FlexRowContainer>
                       <FormikControl
                         control='input'
@@ -147,42 +129,70 @@ const CreateStaff = () => {
                       name='icNo'
                       error={errors.icNo && touched.icNo}
                     />
+                    <FormikControl
+                      control='input'
+                      type='date'
+                      label='Date of Birth'
+                      name='dob'
+                      error={errors.dob && touched.dob}
+                    />
+                    <StyledTitle subtitle paddingTop25>
+                      Contact Information
+                    </StyledTitle>
+                    <Line />
+                    <FormikControl
+                      control='input'
+                      type='contactNo'
+                      label='Contact no.'
+                      name='contactNo'
+                      error={errors.contactNo && touched.contactNo}
+                    />
+                    <FormikControl
+                      control='input'
+                      type='personalEmail'
+                      label='Personal Email'
+                      name='personalEmail'
+                      error={errors.personalEmail && touched.personalEmail}
+                    />
+                    <FormikControl
+                      control='input'
+                      type='address'
+                      label='Home Address'
+                      name='address'
+                      error={errors.address && touched.address}
+                    />
                   </CardContainer>
                   <FlexColumnContainer paddingLeft70>
                     <CardContainer>
                       <StyledTitle subtitle>System Registration</StyledTitle>
                       <Line />
                       <FormikControl
+                        control='input'
+                        type='centreId'
+                        label='Blood Centre ID'
+                        name='centreId'
+                        disabled={true}
+                      />
+                      <FormikControl
+                        control='input'
+                        type='centreName'
+                        label='Blood Centre'
+                        name='centreName'
+                        disabled={true}
+                      />
+                      <FormikControl
+                        control='input'
+                        type='companyEmail'
+                        label='Company Email'
+                        name='companyEmail'
+                        error={errors.companyEmail && touched.companyEmail}
+                      />
+                      <FormikControl
                         control='select'
                         label='Role'
                         name='role'
                         options={roleOptions}
                         error={errors.role && touched.role}
-                      />
-                      <StyledTitle subtitle paddingTop25>
-                        Contact Information
-                      </StyledTitle>
-                      <Line />
-                      <FormikControl
-                        control='input'
-                        type='contactNo'
-                        label='Contact no.'
-                        name='contactNo'
-                        error={errors.contactNo && touched.contactNo}
-                      />
-                      <FormikControl
-                        control='input'
-                        type='personalEmail'
-                        label='Personal Email'
-                        name='personalEmail'
-                        error={errors.personalEmail && touched.personalEmail}
-                      />
-                      <FormikControl
-                        control='input'
-                        type='address'
-                        label='Home Address'
-                        name='address'
-                        error={errors.address && touched.address}
                       />
                     </CardContainer>
                   </FlexColumnContainer>

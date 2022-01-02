@@ -51,7 +51,12 @@ const AppointmentSchedule = () => {
         slot.endDate = new Date(parseDateTime(e.date, e.endTime));
         const donor = e.appointmentRequests.map((e) => {
           let info =
-            e.donor.fName + ' ' + e.donor.lName + ' (' + e.donor.donorId + ')';
+            e.donor.fName +
+            ' ' +
+            e.donor.lName +
+            ' (' +
+            e.donor.appUser.username +
+            '), '; //icNo
           return info;
         });
         info.push(slot);

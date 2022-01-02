@@ -50,7 +50,7 @@ const CreateDonor = () => {
     email: Yup.string().email('Invalid email format').required('Required!'),
   });
 
-  const onSubmit = (values) => {
+  const onSubmit = (values, { resetForm }) => {
     console.log(values);
     //user contactNo is the temporary password created for donors
     createAppUserService(values.icNo, values.contactNo).then(
@@ -61,6 +61,7 @@ const CreateDonor = () => {
         );
       }, 1000)
     );
+    resetForm();
   };
 
   return (
