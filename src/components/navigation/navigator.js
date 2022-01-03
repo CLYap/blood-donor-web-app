@@ -12,6 +12,7 @@ import DonorDetails from '../../pages/donor-details';
 import LiveChat from '../../pages/live-chat';
 import DonorLocation from '../../pages/donor-location';
 import AppointmentSchedule from '../../pages/appointment-schedule';
+import ResetPassword from '../../pages/reset-password';
 import { useUserInfo } from '../../components/context/user-info-provider';
 
 const Navigator = () => {
@@ -55,6 +56,7 @@ const Navigator = () => {
           />
         </>
       )}
+      <Route path='/password/reset' element={<ResetPassword />} />
       <Route
         path='*'
         element={<Navigate to={isLoggedIn ? '/home' : '/login'} />}

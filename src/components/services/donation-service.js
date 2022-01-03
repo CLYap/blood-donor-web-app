@@ -1,7 +1,7 @@
 import API from './api';
 
 export const getDonationHistoriesService = (donorId) => {
-  return API.get('/donations/' + donorId).then((response) =>
+  return API.get('/donor/donations/' + donorId).then((response) =>
     response.status === 200 ? response : null
   );
 };

@@ -110,7 +110,7 @@ const DonorLocation = () => {
                       <NavText table>
                         <ListItem>
                           <Link
-                            to={`/donor/${donor.donorId}_${
+                            to={`/live-chat/${donor.donorId}_${
                               donor.donorData &&
                               donor.donorData.fName +
                                 '-' +

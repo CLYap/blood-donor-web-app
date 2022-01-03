@@ -367,3 +367,10 @@ export const TextBar = styled.input`
   margin: 25px 0px;
   margin-right: 30px;
 `;
+
+export const TextLink = styled.p`
+  padding: 5px;
+  text-align: left;
+  color: ${theme};
+  text-decoration-line: underline;
+`;

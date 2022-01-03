@@ -39,3 +39,10 @@ export const createDonorProfileService = (values) => {
     bloodType: values.bloodType,
   }).then((response) => (response.status === 200 ? response : null));
 };
+
+export const resetPasswordService = (values) => {
+  return API.put('/reset/password', {
+    username: values.email,
+    password: values.password,
+  }).then((response) => (response.status === 200 ? response : null));
+};

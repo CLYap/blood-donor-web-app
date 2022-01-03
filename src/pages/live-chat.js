@@ -86,7 +86,9 @@ const LiveChat = () => {
         <InnerContainer>
           <StyledTitle pageTitle>Live Chat</StyledTitle>
           <Line />
-          <StyledText paddingTop15>{donorId}</StyledText>
+          <StyledText paddingTop15>
+            {donorId} {donorName.replace('-', ' ')}
+          </StyledText>
           <Messages>
             {messages.length
               ? messages.map((msg, i) => (

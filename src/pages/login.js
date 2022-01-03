@@ -9,9 +9,11 @@ import {
   StyledTitle,
   StyledButton,
   StyledText,
+  TextLink,
 } from '../components/global-styles';
 import FormikControl from '../components/form/formik-control';
 import { useUserInfo } from '../components/context/user-info-provider';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   let { loginUser } = useUserInfo();
@@ -58,6 +60,9 @@ const Login = () => {
                   name='password'
                   error={errors.password && touched.password}
                 />
+                <Link to='/password/reset'>
+                  <TextLink>Reset Your Password</TextLink>
+                </Link>
                 <StyledButton type='submit'>
                   <StyledText primaryText>Login</StyledText>
                 </StyledButton>
