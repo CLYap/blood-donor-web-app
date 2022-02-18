@@ -63,7 +63,7 @@ const Home = (logout) => {
     );
 
     //chat -- only display to admin
-    if (role && role.includes('ROLE_ADMIN')) {
+    if (role && role.includes('ROLE_ADMIN') && staffInfo) {
       db.collection('messages')
         .get()
         .then((querySnapshot) => {

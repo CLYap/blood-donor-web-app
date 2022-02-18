@@ -81,6 +81,9 @@ const DonorLocation = () => {
                 <StyledText primaryText>Donor ID</StyledText>
               </ListItemBlock>
               <ListItemBlock>
+                <StyledText primaryText>Donor IC No.</StyledText>
+              </ListItemBlock>
+              <ListItemBlock>
                 <StyledText primaryText>Donor First Name</StyledText>
               </ListItemBlock>
               <ListItemBlock>
@@ -119,6 +122,11 @@ const DonorLocation = () => {
                           >
                             <ListItemBlock>
                               <StyledText>{donor.donorId}</StyledText>
+                            </ListItemBlock>
+                            <ListItemBlock>
+                              <StyledText>
+                                {donor.donorData && donor.donorData.icNo}
+                              </StyledText>
                             </ListItemBlock>
                             <ListItemBlock>
                               <StyledText>
